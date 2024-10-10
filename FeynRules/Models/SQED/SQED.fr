@@ -1,0 +1,53 @@
+M$ModelName = "SQED";
+
+FeynmanGauge = False;
+
+M$Information = {
+  Authors      -> {"S. Song"},
+  Version      -> "1.0.0",
+  Institutions -> {"Seoul National University"},
+  Emails       -> {"hypercube256@snu.ac.kr"},
+  Date         -> "24 July 2016"
+};
+
+M$GaugeGroups = {
+	U1 == {
+		Abelian           -> True,
+		CouplingConstant  -> EL,
+		GaugeBoson        -> A,
+		Charge            -> Q
+	}
+};
+
+M$Parameters = {
+  EL == {
+    ParameterType    -> External,
+    TeX              -> el,
+    Value            -> 0.1,
+    Description      -> "fundamental charge"
+  }
+};
+
+M$ClassesDescription = {
+  S[1] == {
+    ClassName       -> Phi,
+    SelfConjugate   -> False,
+    Mass            -> {mPhi, 1},
+    QuantumNumbers  -> {Q -> 1},
+    PropagatorLabel -> "Phi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> Forward,
+    ParticleName    -> "Phi",
+    FullName        -> "Phi"
+  },
+  V[1] == {
+    ClassName        -> A,
+    SelfConjugate    -> True,
+    Mass             -> 0,
+    PropagatorLabel  -> "\\gamma",
+    PropagatorType   -> W,
+    PropagatorArrow  -> None
+  }
+};
+
+LSQED := -1/4 FS[A, mu, nu] FS[A, mu, nu] + DC[Phibar, mu] DC[Phi, mu] - mPhi^2 Phibar Phi;

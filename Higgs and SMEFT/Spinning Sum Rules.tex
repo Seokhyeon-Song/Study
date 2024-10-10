@@ -1,0 +1,50 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage{tikz,tikz-cd,tikz-3dplot,pgfplots}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm,bbm}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{tensor}
+\usepackage{indentfirst}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing}
+\allowdisplaybreaks
+\pgfplotsset{width=10cm, compat=1.16}
+\renewcommand\bra[1]{{\langle{#1}|}}
+\renewcommand\ket[1]{{|{#1}\rangle}}
+\renewcommand\bfdefault{b}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth} 
+
+\begin{document}
+	metric convention: $(+,-,-,-)$
+	\section{Formalism}
+	For the scattering amplitude $\mathcal{A}_{\alpha\beta}(s,t)$ where $\alpha$ and $\beta$ represents particles' quantum numbers including helicity, the analyticity gives
+	\[\frac{\partial\mathcal{A}_{\alpha\beta}}{\partial s}(0,0)=\frac{1}{\pi}\int_{\infty}^{s_{0}}\frac{ds}{s^{2}}[\mathrm{Im}\mathcal{A}_{\alpha\beta}(s,0)-\mathrm{Im}\mathcal{A}_{\bar{\alpha}\beta}(s,0)]-C^{(s)}_{\infty,\alpha\beta}\]
+	and
+	\[\frac{\partial\mathcal{A}_{\alpha\beta}}{\partial t}(0,0)=,\]
+	neglecting the contribution of IR bound states.
+
+
+
+\end{document}

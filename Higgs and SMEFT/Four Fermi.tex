@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage{tikz,tikz-cd,tikz-3dplot,pgfplots}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm,bbm}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{tensor}
+\usepackage{indentfirst}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing}
+\allowdisplaybreaks
+\pgfplotsset{width=10cm, compat=1.16}
+\renewcommand\bra[1]{{\langle{#1}|}}
+\renewcommand\ket[1]{{|{#1}\rangle}}
+\renewcommand\bfdefault{b}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth} 
+
+\begin{document}
+metric convention: $(+---)$
+\section{Toy Model: Photonless Weak Theory}
+	We consider an $\mathrm{SU}(2)$ gauge theory, which is spontaneously broken to the trivial group.
+	The Lagrangian is
+	\[\mathcal{L}=-\frac{1}{4}W^{a}_{\mu\nu}W^{a\mu\nu}+(D_{\mu}H)^{\dagger}(D^{\mu}H)+m^{2}H^{\dagger}H-\lambda(H^{\dagger}H)^{2}.\]
+	The field $H$ is a complex $\mathrm{SU}(2)$-doublet.
+	The covariant derivative is
+	\[D_{\mu}H=\partial_{\mu}H-i\frac{g}{2}W^{a}_{\mu}t^{a}H,\]
+	where $t^{a}$ are Pauli matrices.
+	Near the vacuum, we may expand
+	\[H=\frac{1}{\sqrt{2}}\begin{pmatrix}-i\chi^{1}-\chi^{2}\\v+h+i\chi^{3}\end{pmatrix}=\frac{1}{\sqrt{2}}\begin{pmatrix}0\\v+h\end{pmatrix}-\frac{i}{\sqrt{2}}\chi^{a}t^{a}\begin{pmatrix}0\\1\end{pmatrix},\]
+	where $v=\frac{m}{\sqrt{\lambda}}$.
+	
+	The covariant derivative is now
+	\[D_{\mu}H=\frac{1}{\sqrt{2}}\begin{pmatrix}0\\\partial_{\mu}h\end{pmatrix}-\frac{i}{\sqrt{2}}(\partial_{\mu}\chi^{a})t^{a}\begin{pmatrix}0\\1\end{pmatrix}-\frac{ig}{2\sqrt{2}}W^{a}_{\mu}t^{a}\begin{pmatrix}0\\v+h\end{pmatrix}-\frac{g}{2\sqrt{2}}W^{a}_{\mu}\chi^{b}t^{a}t^{b}\begin{pmatrix}0\\1\end{pmatrix},\]
+	so the Higgs kinetic term becomes
+	\begin{align*}
+		(D_{\mu}H)^{\dagger}(D^{\mu}H)&=\begin{aligned}[t]
+			&\frac{1}{2}(\partial_{\mu}h)(\partial^{\mu}h)+\frac{1}{2}(\partial_{\mu}\chi^{a})(\partial^{\mu}\chi^{a})+\frac{g^{2}}{8}(v+h)^{2}W^{a}_{\mu}W^{a\mu}+\frac{g^{2}}{8}W^{a}_{\mu}W^{a\mu}\chi^{b}\chi^{b}\\
+			&+\frac{g}{2}(v+h)W^{a}_{\mu}\partial_{\mu}\chi^{a}-\frac{g}{2}(\partial_{\mu}h)W^{a}_{\mu}\chi^{a}-\frac{ig}{2}\epsilon_{abc}W^{a}_{\mu}(\partial_{\mu}\chi^{b})\chi^{c}.
+		\end{aligned}
+	\end{align*}
+	Hence, the gauge fields become massive:
+	\[\mathcal{L}_{\text{gauge}}=-\frac{1}{4}W^{a}_{\mu\nu}W^{a\mu\nu}+\frac{g^{2}v^{2}}{8}W^{a}_{\mu}W^{a\mu},\]
+	so the W boson mass is $m_{W}=gv/2$.
+	
+	Next, the Higgs potential terms become
+	\begin{align*}
+		\mathcal{L}_{\text{pot}}&=m^{2}H^{\dagger}H-\lambda(H^{\dagger}H)^{2}\\
+		&=\frac{1}{2}m^{2}\left[(v+h)^{2}+\chi^{a}\chi^{a}\right]-\frac{\lambda}{4}\left[(v+h)^{2}+\chi^{a}\chi^{a}\right]^{2}\\
+		&=\frac{1}{4}m^{2}v^{2}-m^{2}h^{2}-\frac{m^{2}}{v}h^{3}-\frac{m^{2}}{4v^{2}}h^{4}-\frac{m^{2}}{v}h\chi^{a}\chi^{a}-\frac{m^{2}}{2v^{2}}h^{2}\chi^{a}\chi^{a}-\frac{m^{2}}{4v^{2}}\chi^{a}\chi^{a}\chi^{b}\chi^{b}.
+	\end{align*}
+	So the physical Higgs mass is $m_{h}=\sqrt{2}m$.
+	
+	In Feynman gauge, the gauge-fixing Lagrangian is
+	\begin{align*}
+		\mathcal{L}_{\mathrm{gf}}&=-\frac{1}{2}\left(\partial^{\mu}W^{a}_{\mu}-\frac{gv}{2}\chi^{a}\right)\left(\partial^{\nu}W^{a}_{\nu}-\frac{gv}{2}\chi^{a}\right)\\
+		&=-\frac{1}{2}(\partial^{\mu}W^{a}_{\mu})(\partial^{\nu}W^{a}_{\nu})+\frac{gv}{2}(\partial^{\mu}W^{a}_{\mu})\chi^{a}-\frac{g^{2}v^{2}}{8}\chi^{a}\chi^{a},
+	\end{align*}
+	so the $W\chi$ vertex in the Higgs kinetic term vanishes (up to total derivative).
+	The ghost Lagrangian is
+	\[\mathcal{L}_{\mathrm{gh}}=-\bar{c}^{a}\partial^{\mu}D^{ab}_{\mu}c^{b}-\frac{g^{2}v(v+h)}{4}\bar{c}^{a}c^{a}-\frac{g^{2}v}{4}\epsilon_{abc}\bar{c}^{a}c^{b}\chi^{c}\]
+	
+	There are left-handed fermions ($q$-type) which are $\mathrm{SU}(2)$-doublet, and corresponded right-handed $\mathrm{SU}(2)$-singlet fermions ($u$-type and $d$-type).
+	The fermion sector Lagrangian is given as (in Dirac notation)
+	\[\mathcal{L}_{\text{fermion}}=i\bar{q}_{L}^{i}\slashed{D}q_{L}^{i}+i\bar{u}_{R}^{i}\slashed{\partial}u_{R}^{i}+i\bar{d}_{R}^{i}\slashed{\partial}d_{R}^{i}-(Y_{u}^{ij}\bar{q}_{L}^{i}\tilde{H}u_{R}^{j}+Y_{d}^{ij}\bar{q}_{L}^{i}Hd_{R}^{j}+\mathrm{h.c.}),\]
+	where
+	\[D_{\mu}q_{L}^{i}=\partial_{\mu}q_{L}^{i}-i\frac{g}{2}W^{a}_{\mu}t^{a}q_{L}^{i}.\]
+	Identifying $q^{i}_{L}=(u^{i}_{L}\;d^{i}_{L})^{T}$, the fermion kinetic terms become
+	\[i\bar{q}_{L}^{i}\slashed{D}q_{L}^{i}+i\bar{u}_{R}^{i}\slashed{\partial}u_{R}^{i}+i\bar{d}_{R}^{i}\slashed{\partial}d_{R}^{i}=i\bar{u}^{i}\slashed{\partial}u^{i}+i\bar{d}^{i}\slashed{\partial}d^{i}+\frac{g}{2}\begin{pmatrix}\bar{u}^{i}&\bar{d}^{i}\end{pmatrix}\slashed{W}^{a}t^{a}P_{L}\begin{pmatrix}u^{i}\\d^{i}\end{pmatrix},\]
+	and the Yukawa terms become
+	\[-Y_{u}^{ij}\bar{q}_{L}^{i}\tilde{H}u_{R}^{j}-Y_{d}^{ij}\bar{q}_{L}^{i}Hd_{R}^{j}+\mathrm{h.c.}=-\frac{v+h}{\sqrt{2}}(Y_{u}^{ij}\bar{u}_{L}^{i}u_{R}^{j}+Y_{d}^{ij}\bar{d}_{L}^{i}d_{R}^{j})+\text{Goldstone Yukawa}+\mathrm{h.c.}.\]
+	For simplicity, assume that $Y_{u}$ and $Y_{d}$ are real diagonal matrices, so that $Y_{u}^{ij}=\delta^{ij}Y_{u}^{i}$ and $Y_{d}^{ij}=\delta^{ij}Y_{d}^{i}$.
+	Then the Yukawa terms give Dirac masses:
+	\[-\frac{v}{\sqrt{2}}(Y_{u}^{ij}\bar{u}_{L}^{i}u_{R}^{j}+Y_{d}^{ij}\bar{d}_{L}^{i}d_{R}^{j}+\mathrm{h.c.})=-\frac{v}{\sqrt{2}}(Y_{u}^{i}\bar{u}^{i}u^{i}+Y_{d}^{i}\bar{d}^{i}d^{i}).\]
+	Hence, $m_{u}^{i}=vY_{u}^{i}/\sqrt{2}$ and $m_{d}^{i}=vY_{d}^{i}/\sqrt{2}$.
+	
+	\subsection{Four-Fermion Scattering}
+	Since there is no flavour mixing, the possible $ff\to ff$ procedures are elastic scattering and pair annihilation/creation.
+	We look at the pair annihilation/creation process, because it manifestly shows the resonance structure.
+	
+	\subsection{EFT Matching}
+	We want to obtain the effective field theory, where we only have light fermions and no Higgs or gauge bosons.
+\end{document}

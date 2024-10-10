@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage{tikz,tikz-cd,tikz-3dplot,pgfplots}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm,bbm}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{tensor}
+\usepackage{indentfirst}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing}
+\allowdisplaybreaks
+\pgfplotsset{width=10cm, compat=1.16}
+\renewcommand\bra[1]{{\langle{#1}|}}
+\renewcommand\ket[1]{{|{#1}\rangle}}
+\renewcommand\bfdefault{b}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth} 
+
+\begin{document}
+sign convention: $(+,-,-,-)$
+\section{Field Space Manifold}
+\subsection{Basic Concepts}
+Consider a theory with $N$ real scalar fields, $\phi^{i}$ for $i=1,\dots,N$.
+The fields can be regarded as a coordinate chart on the field-space manifold $\mathcal{M}$.
+That is, $\phi:U\to V$ is an invertible map from an open subset $U\subset\mathcal{M}$ to an open subset $V\subset\mathbb{R}^{n}$.
+A Lagrangian is given by
+\[\mathcal{L}=\frac{1}{2}g_{ij}(\phi)\partial_{\mu}\phi^{i}\partial^{\mu}\phi^{j}-V(\phi).\]
+Under the field redefinition $\psi(\phi)$, the derivative transforms as
+\[\partial_{\mu}\psi^{i}=\frac{\partial\psi^{i}}{\partial\phi^{j}}\partial_{\mu}\phi^{j},\]
+so
+\[g'_{ij}(\psi)=\frac{\partial\phi^{k}}{\partial\psi^{i}}\frac{\partial\phi^{l}}{\partial\psi^{j}}g_{kl}(\phi).\]
+Hence $g$ transforms as a symmetric tensor with two lower indices, so we identify it as a metric on $\mathcal{M}$.
+
+\subsection{Tree-Level Amplitudes}
+Putting vacuum at the origin, we may expand
+\[\mathcal{L}=\frac{1}{2}\sum_{n=0}^{\infty}\frac{1}{n!}\bar{g}_{ij,k_{1}\dots k_{n}}(\partial_{\mu}\phi^{i})(\partial^{\mu}\phi^{j})\phi^{k_{1}}\cdots\phi^{k_{n}}-\sum_{n=0}^{\infty}\frac{1}{n!}\bar{V}_{,k_{1}\dots k_{n}}\phi^{k_{1}}\cdots\phi^{k_{n}},\]
+where bar denotes quantities evaluated at the origin.
+We can always assume that (with suitable field redefinition) $\bar{g}_{ij}=\delta_{ij}$, then we can further diagonalise $V_{,ij}$ so that the masses of the fields are given by $V_{,ij}=m_{i}\delta_{ij}$.
+
+Vielbein $e_{a}^{i}$: $g_{ij}=e_{ai}e_{bj}\delta^{ab}$.
+
+Hence, the propagator is
+\[\begin{tikzpicture}[baseline={-height("$\vcenter{}$")}]
+	\draw (0,0) -- (1,0);
+	\node at (0,0) [below] {$i$};
+	\node at (1,0) [below] {$j$};
+	\node at (0.5,0) [above] {$p$};
+\end{tikzpicture}=\frac{i\delta_{ij}}{p^{2}-m_{i}^{2}}.\]
+The $n$-point vertex is given by
+\[iV_{n}=-i\bar{V}_{,k_{1}\dots k_{n}}-i\sum_{i<j}p_{i}^{\mu}p_{j\mu}\bar{g}_{k_{i}k_{j},k_{1}\dots\hat{k}_{i}\dots\hat{k}_{j}\dots k_{n}}.\]
+
+
+
+
+\end{document}

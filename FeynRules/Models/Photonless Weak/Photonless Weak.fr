@@ -1,0 +1,233 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "Photonless Weak";
+
+M$Information = {
+  Authors      -> {"S. Song"}, 
+  Version      -> "1.0.2",
+  Date         -> "05. 06. 2024",
+  Institutions -> {"Seoul National University"},
+  Emails       -> {"hypercube256@snu.ac.kr"}
+};
+
+FeynmanGauge = True;
+
+FR$LoopSwitches = {{gW, mW}};
+
+(* ************************** *)
+(* *****  Gauge groups  ***** *)
+(* ************************** *)
+
+M$GaugeGroups = {
+  SU2L == { 
+    Abelian           -> False,
+    CouplingConstant  -> gW,
+    GaugeBoson        -> W,
+    StructureConstant -> f,
+    Representations   -> {{Ta,SU2D}},
+    Definitions       -> {Ta[a_,b_,c_]->PauliSigma[a,b,c]/2, f->Eps}
+  }
+};
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+
+IndexRange[Index[SU2W]] = Unfold[Range[3]];
+IndexRange[Index[SU2D]] = Unfold[Range[2]];
+
+IndexStyle[SU2W, a];
+IndexStyle[SU2D, A];
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+(* Scalar bosons: physical scalars  *)
+  S[1] == {
+    ClassName       -> H,
+    SelfConjugate   -> True,
+    Mass            -> {mh, 125.1},
+    PropagatorLabel -> "h",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> None,
+    ParticleName    -> "h",
+    FullName        -> "Higgs"
+  },
+
+(* Goldstone bosons *)
+  S[2] == {
+    ClassName       -> Chi,
+    ClassMembers    -> {Chi1, Chi2, Chi3},
+    SelfConjugate   -> True,
+    Indices         -> {Index[SU2W]},
+    FlavorIndex     -> SU2W,
+    Goldstone       -> W,
+    Mass            -> {mW, Internal},
+    PropagatorLabel -> "chi",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    ParticleName    -> "chi",
+    FullName        -> "chi"
+  },
+
+(* Higgs: unphysical scalars  *)
+  S[3] == { 
+    ClassName      -> Phi,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> { Phi[1] -> (-I Chi1 - Chi2)/Sqrt[2], Phi[2] -> (vH + H + I Chi3)/Sqrt[2] }
+  },
+
+(* Gauge bosons: physical vector fields *)
+  V[1] == {
+    ClassName       -> W,
+    ClassMembers    -> {W1, W2, W3},
+    SelfConjugate   -> True,
+    Indices         -> {Index[SU2W]},
+    FlavorIndex     -> SU2W,
+    Mass            -> {mW, Internal},
+    ParticleName    -> "W",
+    PropagatorLabel -> "W",
+    PropagatorType  -> Sine,
+    FullName        -> "W"
+  },
+
+(* Ghosts: related to physical gauge bosons *)
+  U[1] == { 
+    ClassName       -> ghW,
+    ClassMembers    -> {c1, c2, c3},
+    SelfConjugate   -> False,
+    Indices         -> {Index[SU2W]},
+    FlavorIndex     -> SU2W,
+    Ghost           -> W,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> {mW, Internal},
+    PropagatorLabel -> "c",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+
+(* Fermions: physical fields *)
+  F[1] == {
+    ClassName        -> u,
+    SelfConjugate    -> False,
+    Mass             -> {Mu, 2.55*^-3},
+    PropagatorLabel  -> "u",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> "u",
+    AntiParticleName -> "u~",
+    FullName         -> "u-quark"
+  },
+  F[2] == {
+    ClassName        -> d,
+    SelfConjugate    -> False,
+    Mass             -> {Md, 5.04*^-3},
+    PropagatorLabel  -> "d",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> "d",
+    AntiParticleName -> "d~",
+    FullName         -> "d-quark"
+  },
+
+(* Fermions: unphysical fields *)
+  F[3] == { 
+    ClassName      -> QL,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    Definitions    -> { 
+      QL[sp1_,1] :> Module[{sp2}, ProjM[sp1,sp2] u[sp2]], 
+      QL[sp1_,2] :> Module[{sp2}, ProjM[sp1,sp2] d[sp2]] }
+  },
+  F[4] == { 
+    ClassName      -> uR,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    Definitions    -> { uR[sp1_] :> Module[{sp2}, ProjP[sp1,sp2] u[sp2]] }
+  },
+  F[5] == { 
+    ClassName      -> dR,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    Definitions    -> { dR[sp1_] :> Module[{sp2}, ProjP[sp1,sp2] d[sp2]] }
+  }
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+  (* External parameters *)
+  gW == { 
+    ParameterType    -> External,
+    TeX              -> g,
+    Value            -> 0.65,
+    Description      -> "Weak coupling constant"
+  },
+  vH == {
+    ParameterType    -> External,
+    TeX              -> v,
+    Value            -> 246,
+    Description      -> "Higgs vev"
+  },
+
+  (* Internal Parameters *)
+  mW == {
+    ParameterType    -> Internal,
+    TeX              -> Subscript[m,W],
+    Value            -> gW vH/2,
+    Description      -> "Higgs vev"
+  },
+  lambda == {
+    ParameterType    -> Internal,
+    TeX              -> \[Lambda],
+    Value            -> 1/2 mh^2/vH^2,
+    Description      -> "Triple Higgs coupling"
+  },
+  yu == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[2] Mu/vH,
+    ComplexParameter -> False,
+    TeX              -> Subscript[Y, u],
+    Description      -> "Up-type Yukawa coupling"
+  },
+  yd == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[2] Md/vH,
+    ComplexParameter -> False,
+    TeX              -> Subscript[Y, d],
+    Description      -> "Down-type Yukawa coupling"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LGauge := -1/4 FS[W,mu,nu,a] FS[W,mu,nu,a];
+LHiggs := ExpandIndices[DC[Phibar[A],mu] DC[Phi[A],mu] + mh^2/2 Phibar[A] Phi[A] - lambda Phibar[A] Phi[A] Phibar[B] Phi[B], FlavorExpand->{SU2D,SU2W}];
+LGF := -1/2 (del[W[mu,a],mu] - mW Chi[a]) (del[W[nu,a],nu] - mW Chi[a]);
+LGH := -ghWbar[a].del[DC[ghW[a],mu],mu] - mW^2 ghWbar[a].ghW[a] - gW^2 vH/4 H ghWbar[a].ghW[a] - gW^2 vH/4 Eps[a,b,c] ghWbar[a].ghW[b] Chi[c];
+LFermions := I*(QLbar.Ga[mu].DC[QL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu]);
+LYukawa := -yd QLbar[sp, A].dR[sp] Phi[A] - yu QLbar[sp, A].uR[sp] Phibar[B] Eps[A, B];
+
+LTotal:= LGauge + LHiggs + LGF + LGH + LFermions + LYukawa + HC[LYukawa];

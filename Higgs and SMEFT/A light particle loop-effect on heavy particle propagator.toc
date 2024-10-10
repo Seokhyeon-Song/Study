@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Model}{3}{0}{1}
+\beamer@sectionintoc {2}{Resonance Structure in One-Loop Order}{5}{0}{2}
+\beamer@sectionintoc {3}{Alternative Model: Weak with Light Higgs}{9}{0}{3}

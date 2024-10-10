@@ -1,0 +1,181 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage{tikz,tikz-cd,tikz-3dplot,pgfplots}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm,bbm}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{tensor}
+\usepackage{indentfirst}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing}
+\allowdisplaybreaks
+\pgfplotsset{width=10cm, compat=1.16}
+\renewcommand\bra[1]{{\langle{#1}|}}
+\renewcommand\ket[1]{{|{#1}\rangle}}
+\renewcommand\bfdefault{b}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth} 
+
+\begin{document}
+	Main reference: Peskin \& Schroeder QFT and Srednicki QFT
+	\section{Formalism}
+	Spectral representation
+	\[\int d^{4}x\,e^{ip\cdot x}\bra{\Omega}T\phi(x)\phi(y)\ket{\Omega}=\frac{iZ_{r}}{p^{2}-m^{2}+i\epsilon}+\int_{4m^{2}}^{\infty}\frac{dM^{2}}{2\pi}\rho(M^{2})\frac{\rho(M^{2})}{p^{2}-M^{2}+i\epsilon}.\]
+	We may rescale the field so that $\phi=Z_{\phi}^{1/2}\phi_{r}$.
+	If we had started with the bare Lagrangian
+	\[\mathcal{L}=\frac{1}{2}(\partial_{\mu}\phi)^{2}-\frac{1}{2}m_{0}^{2}\phi^{2}-g_{0}\phi\mathcal{O}+\dots,\]
+	where $\mathcal{O}$ is an operator which does not depend on $\phi$, then
+	\begin{align*}
+		\mathcal{L}&=\frac{1}{2}Z_{\phi}(\partial_{\mu}\phi_{r})^{2}-\frac{1}{2}Z_{\phi}m_{0}^{2}\phi_{r}^{2}-g_{0}Z_{\phi}^{1/2}\phi_{r}\mathcal{O}+\dots\\
+		&=\frac{1}{2}(\partial_{\mu}\phi_{r})^{2}-\frac{1}{2}m^{2}\phi_{r}^{2}-g\phi_{r}\mathcal{O}+\frac{1}{2}\delta_{Z}(\partial_{\mu}\phi_{r})^{2}-\frac{1}{2}\delta_{m}\phi_{r}^{2}-\delta_{g}\phi_{r}\mathcal{O}+\dots,
+	\end{align*}
+	for
+	\[\delta_{Z}=Z_{\phi}-1,\quad\delta_{m}=Z_{\phi}m_{0}^{2}-m^{2},\quad\delta_{g}=Z_{\phi}^{1/2}g_{0}-g.\]
+	We fix the counterterms by requiring that the exact propagator has a pole $iZ_{r}/(p^{2}-m^{2})$:
+	\[\Sigma(m^{2})=0,\quad\Sigma'(m^{2})=Z_{r}^{-1}-1.\]
+	From LSZ, we have
+	\[\bra{p}S\ket{p}=Z_{r}\times(\text{Diagram}).\]
+	
+	\section{Specific Example: Scalar Loop}
+	The scalar loop self-energy is
+	\begin{align*}
+		\Sigma(p^{2})&=\frac{\tilde{g}^{2}}{16\pi^{2}}\left(\epsilon^{-1}-\gamma+\int_{0}^{1}dx\,\ln\frac{4\pi}{\Delta}\right)-(Ap^{2}+BM^{2})+O(g^{4})\\
+		&=\frac{g^{2}}{16\pi^{2}}\left(\epsilon^{-1}+\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta}\right)-(Ap^{2}+BM^{2})+O(g^{4}),
+	\end{align*}
+	where $\Delta=-x(1-x)p^{2}+m^{2}$.
+	In the $\overline{\mathrm{MS}}$ scheme, we just cancel the $\epsilon^{-1}$ divergence, so that
+	\[\Sigma(p^{2})=\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta}+O(g^{4}).\]
+	For now, we take $2m>M$, so that the external particle is stable.
+	The physical mass $M_{p}$ is defined by $\Sigma(M_{p}^{2})=M^{2}-M_{p}^{2}$, thus
+	\begin{align*}
+		M_{p}^{2}&=M^{2}-\Sigma(M_{p}^{2})\\
+		&=M^{2}-\Sigma(M^{2})+O(g^{4})\\
+		&=M^{2}-\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta_{M}}+O(g^{4}).
+	\end{align*}
+	For the residue $Z_{r}$, we have
+	\begin{align*}
+		Z_{r}^{-1}&=1+\Sigma'(M_{p}^{2})\\
+		&=1+\Sigma'(M^{2})+O(g^{4})\\
+		&=1+\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M}}+O(g^{4}).
+	\end{align*}
+	The physical quantity (somewhat associated with the 1-to-1 scattering amplitude?) is
+	\begin{align*}
+		Z_{r}(p^{2}-M^{2}+\Sigma(p^{2}))&=\left[1-\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M}}+O(g^{4})\right]\left[p^{2}-m^{2}+\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta}+O(g^{4})\right]\\
+		&=p^{2}-M^{2}+\frac{g^{2}}{16\pi^{2}}\left[-(p^{2}-M^{2})\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M}}+\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta}\right]+O(g^{4})\\
+		&=p^{2}-M_{p}^{2}+\frac{g^{2}}{16\pi^{2}}\left[-(p^{2}-M^{2})\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M}}+\int_{0}^{1}dx\,\ln\frac{\Delta_{M}}{\Delta}\right]+O(g^{4}).
+	\end{align*}
+	How about the on-shell scheme?
+	In $\mathrm{OS}$, we put $M=M_{p}$ and $Z_{r}=1$.
+	So we get
+	\[\Sigma(p^{2})=\frac{g^{2}}{16\pi^{2}}\left[-(p^{2}-M_{p}^{2})\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{p}}}+\int_{0}^{1}dx\,\ln\frac{\Delta_{M_{p}}}{\Delta}\right]+O(g^{4}).\]
+	The physical quantity is
+	\[p^{2}-m^{2}+\Sigma(p^{2})=p^{2}-M_{p}^{2}+\frac{g^{2}}{16\pi^{2}}\left[-(p^{2}-M_{p}^{2})\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{p}}}+\int_{0}^{1}dx\,\ln\frac{\Delta_{M_{p}}}{\Delta}\right]+O(g^{4}).\]
+	We can see that the result is almost the same for the $\overline{\mathrm{MS}}$ and the $\mathrm{OS}$ scheme.
+	Only difference is the mass parameter that is used inside the bracket, but its effect is $O(g^{2})$ so the overall quantity is the same up to $O(g^{4})$.
+	
+	\section{Unstable Particle}
+	For unstable particles, the pole mass $M_{p}$ defined by $M_{p}^{2}+\Sigma(M_{p}^{2})=M^{2}$ is complex.
+	Hence, the real physical mass would be $M_{R}=\mathrm{Re}\,M_{p}$.
+	
+	One of the convention in on-shell scheme of unstable particle, we choose $M=M_{\mathrm{OS}}$ so that $\mathrm{Re}\,\Sigma_{\mathrm{OS}}(M_{\mathrm{OS}}^{2})=0$.
+	This gives
+	\[\Sigma_{\mathrm{OS}}(p^{2})=\frac{g^{2}}{16\pi^{2}}\left[-(p^{2}-M_{\mathrm{OS}}^{2})\mathrm{Re}\,\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{\mathrm{OS}}}}+\mathrm{Re}\,\int_{0}^{1}dx\,\ln\frac{\Delta_{M_{\mathrm{OS}}}}{\Delta}+\pi i\int_{0}^{1}dx\,\Theta(-\Delta)\right]+O(g^{4}).\]
+	Therefore, the pole mass can be determined with
+	\begin{align*}
+		M_{p}^{2}&=M_{\mathrm{OS}}^{2}-\Sigma_{\mathrm{OS}}(M_{p}^{2})=M_{\mathrm{OS}}^{2}-\Sigma_{\mathrm{OS}}(M_{\mathrm{OS}}^{2})+O(g^{4})\\
+		&=M_{\mathrm{OS}}^{2}-\frac{ig^{2}}{16\pi}\int_{0}^{1}dx\,\Theta(-\Delta_{M_{\mathrm{OS}}})+O(g^{4}).
+	\end{align*}
+	In this sense, $M_{\mathrm{OS}}=M_{R}+O(g^{4})$.
+	We also had the relation
+	\[M_{p}^{2}=M_{\overline{\mathrm{MS}}}^{2}-\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta_{M_{\overline{\mathrm{MS}}}}}+O(g^{4}),\]
+	so
+	\[M_{\overline{\mathrm{MS}}}^{2}=M_{R}^{2}+\frac{g^{2}}{16\pi^{2}}\mathrm{Re}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta_{M_{R}}}+O(g^{4}).\]
+	Finally, the on-shell pole residue on $p^{2}=M_{p}^{2}$ is
+	\begin{align*}
+		Z_{r}^{-1}&=1+\Sigma_{\mathrm{OS}}'(M_{p}^{2})\\
+		&=1+\frac{g^{2}}{16\pi^{2}}\left[-\mathrm{Re}\,\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{\mathrm{OS}}}}+\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{p}}}\right]+O(g^{4})\\
+		&=1+\frac{ig^{2}}{16\pi^{2}}\mathrm{Im}\,\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{R}}}+O(g^{4}).
+	\end{align*}
+	
+	\subsection{Explicit Decay Width}
+	Consider the self-energy with an explicit constant decay term:
+	\[\Sigma(p^{2})=iM\Gamma+\frac{g^{2}}{16\pi^{2}}\left(\epsilon^{-1}+\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta}\right)-(Ap^{2}+BM^{2})+O(g^{4}).\]	
+	
+	We can think of the following three renormalisation schemes.
+	\begin{enumerate}
+		\item $\overline{\mathrm{MS}}$:
+		\[\Sigma_{\overline{\mathrm{MS}}}(p^{2})=iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}}+\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta}+O(g^{4}).\]
+		
+		\item Real on-shell:
+		\[\Sigma_{\mathrm{OS}}(p^{2})=iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}+\frac{g^{2}}{16\pi^{2}}\bigg[\begin{aligned}[t]
+			&-(p^{2}-M_{\mathrm{OS}}^{2})\mathrm{Re}\,\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}\\
+			&+\mathrm{Re}\int_{0}^{1}dx\,\ln\frac{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}{\Delta}+i\mathrm{Im}\int_{0}^{1}dx\,\ln\frac{1}{\Delta}\bigg]+O(g^{4}).\\
+		\end{aligned}\]
+		
+		\item Complex on-shell:
+		\[\Sigma_{p}(p^{2})=\frac{g^{2}}{16\pi^{2}}\left[-(p^{2}-M_{p}^{2})\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{M_{p}}}+\int_{0}^{1}dx\,\ln\frac{\Delta_{M_{p}}}{\Delta}\right]+O(g^{4}).\]
+	\end{enumerate}
+	We must match the (complex) pole mass:
+	\begin{align*}
+		M_{p}^{2}&=M_{\overline{\mathrm{MS}}}^{2}-iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}}-\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta_{\sqrt{M_{\overline{\mathrm{MS}}}^{2}-iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}}}}}+O(g^{4})\\
+		&=M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}-\frac{ig^{2}}{16\pi^{2}}\bigg[\begin{aligned}[t]
+			M_{\mathrm{OS}}\Gamma_{\mathrm{OS}}\mathrm{Re}\,\int_{0}^{1}dx\,\frac{x(1-x)}{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}&\\
+			+\mathrm{Im}\int_{0}^{1}dx\,\ln\frac{1}{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}&\bigg]+O(g^{4}).\\
+		\end{aligned}
+	\end{align*}
+	Hence,
+	\[M_{\overline{\mathrm{MS}}}^{2}=M_{\mathrm{OS}}^{2}+\frac{g^{2}}{16\pi^{2}}\mathrm{Re}\int_{0}^{1}dx\,\ln\frac{\mu^{2}}{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}+O(g^{4})\]
+	and
+	\[\Gamma_{\overline{\mathrm{MS}}}=\frac{M_{\mathrm{OS}}}{M_{\overline{\mathrm{MS}}}}\Gamma_{\mathrm{OS}}\left(1+\frac{g^{2}}{16\pi^{2}}\mathrm{Re}\int_{0}^{1}dx\frac{x(1-x)}{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}\right)+O(g^{4}).\]
+	
+	Then we have to evaluate pole residue:
+	\begin{align*}
+		Z_{\overline{\mathrm{MS}}}&=1-\frac{g^{2}}{16\pi^{2}}\int_{0}^{1}dx\frac{x(1-x)}{\Delta_{\sqrt{M_{\overline{\mathrm{MS}}}^{2}-iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}}}}}+O(g^{4}),\\
+		Z_{\mathrm{OS}}&=1-\frac{ig^{2}}{16\pi^{2}}\mathrm{Im}\int_{0}^{1}dx\frac{x(1-x)}{\Delta_{\sqrt{M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}}}}+O(g^{4}),\\
+		Z_{p}&=1+O(g^{4}).
+	\end{align*}
+	Note that the $g^{2}$ term in the real on-shell residue is purely imaginary again.
+	
+	\section{General Formula}
+	Let
+	\[\Sigma_{\overline{\mathrm{MS}}}(p^{2})=iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}}+\alpha f(p^{2})+O(\alpha^{2})\]
+	for the loop factor $\alpha$.
+	The real on-shell self-energy is
+	\[\Sigma_{\mathrm{OS}}(p^{2})=iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}+\alpha\left[f(p^{2})-\mathrm{Re}\,f(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})-(p^{2}-M_{\mathrm{OS}}^{2})\mathrm{Re}\,f'(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})\right]+O(\alpha^{2}),\]
+	and the complex on-shell self-energy is
+	\[\Sigma_{p}(p^{2})=\alpha\left[f(p^{2})-f(M_{p}^{2})-(p^{2}-M_{p}^{2})f'(M_{p}^{2})\right]+O(\alpha^{2}).\]
+	The pole mass can be found by
+	\begin{align*}
+		M_{p}^{2}&=M_{\overline{\mathrm{MS}}}^{2}-iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}}-\alpha f(M_{\overline{\mathrm{MS}}}^{2}-iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}})+O(\alpha^{2})\\
+		&=M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}}-i\alpha\left[\mathrm{Im}\,f(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})+M_{\mathrm{OS}}\Gamma_{\mathrm{OS}}\mathrm{Re}\,f'(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})\right]+O(\alpha^{2}),
+	\end{align*}
+	so
+	\[M_{\overline{\mathrm{MS}}}^{2}=M_{\mathrm{OS}}^{2}+\alpha\mathrm{Re}\,f(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})+O(\alpha^{2})\]
+	and
+	\[\Gamma_{\overline{\mathrm{MS}}}=\frac{M_{\mathrm{OS}}}{M_{\overline{\mathrm{MS}}}}\Gamma_{\mathrm{OS}}\left[1+\alpha\mathrm{Re}\,f'(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})\right]+O(\alpha^{2}).\]
+	Finally, the pole residue are
+	\begin{align*}
+		Z_{\overline{\mathrm{MS}}}&=1-\alpha f'(M_{\overline{\mathrm{MS}}}^{2}-iM_{\overline{\mathrm{MS}}}\Gamma_{\overline{\mathrm{MS}}})+O(\alpha^{2}),\\
+		Z_{\mathrm{OS}}&=1-i\alpha\mathrm{Im}\,f'(M_{\mathrm{OS}}^{2}-iM_{\mathrm{OS}}\Gamma_{\mathrm{OS}})+O(\alpha^{2}).
+	\end{align*}
+\end{document}

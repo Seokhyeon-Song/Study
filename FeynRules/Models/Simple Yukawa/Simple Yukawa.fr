@@ -1,0 +1,135 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "Simple Yukawa";
+
+M$Information = {
+  Authors      -> {"S. Song"}, 
+  Version      -> "1.0.0",
+  Date         -> "07. 06. 2024",
+  Institutions -> {"Seoul National University"},
+  Emails       -> {"hypercube256@snu.ac.kr"}
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+(* Scalar bosons: physical scalars  *)
+  S[1] == {
+    ClassName       -> Phi,
+    SelfConjugate   -> True,
+    Mass            -> {mPhi, 1},
+    PropagatorLabel -> "Phi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> None,
+    ParticleName    -> "Phi",
+    FullName        -> "Phi"
+  },
+  S[2] == {
+    ClassName       -> Chi,
+    SelfConjugate   -> False,
+    Mass            -> {mChi, 0.23},
+    PropagatorLabel -> "Chi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> Forward,
+    ParticleName    -> "Chi",
+    FullName        -> "Chi"
+  },
+
+(* Fermions: physical fields *)
+  F[1] == {
+    ClassName        -> Psi1,
+    SelfConjugate    -> False,
+    Mass             -> {mPsi1, 0.1},
+    PropagatorLabel  -> "Psi1",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> "Psi1",
+    AntiParticleName -> "Psi1~",
+    FullName         -> "Psi1"
+  },
+  F[2] == {
+    ClassName        -> Psi2,
+    SelfConjugate    -> False,
+    Mass             -> {mPsi2, 0.11},
+    PropagatorLabel  -> "Psi2",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> "Psi2",
+    AntiParticleName -> "Psi2~",
+    FullName         -> "Psi2"
+  }
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+  (* External parameters *)
+  lambda3 == { 
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Lambda],3],
+    Value            -> 0.65,
+    Description      -> "Triple-Phi coupling"
+  },
+  lambda41 == {
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Lambda],41],
+    Value            -> 0.31,
+    Description      -> "Quad-Phi coupling"
+  },
+  lambda42 == {
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Lambda],42],
+    Value            -> 0.33,
+    Description      -> "Quad-Chi coupling"
+  },
+  tau1 == {
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Tau],1],
+    Value            -> 0.13,
+    Description      -> "Phi-Chi2 coupling"
+  },
+  tau2 == {
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Tau],2],
+    Value            -> 0.14,
+    Description      -> "Phi2-Chi2 coupling"
+  },
+  Y1 == { 
+    ParameterType    -> External,
+    TeX              -> Subscript[Y,1],
+    Value            -> 0.123,
+    Description      -> "Yukawa coupling 1"
+  },
+  Y2 == { 
+    ParameterType    -> External,
+    TeX              -> Subscript[Y,2],
+    Value            -> 0.124,
+    Description      -> "Yukawa coupling 2"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LScalar1 := 1/2 del[Phi,mu] del[Phi,mu] - mPhi^2/2 Phi^2 - lambda3/6 Phi^3 - lambda41/24 Phi^4;
+LScalar2 := del[Chibar,mu] del[Chi,mu] - mChi^2 Chibar Chi - lambda42/4 (Chibar Chi)^2;
+LScalarInt := -tau1 Phi Chibar Chi - tau2/2 Phi^2 Chibar Chi;
+LFermions := I*(Psi1bar.Ga[mu].del[Psi1, mu] + Psi2bar.Ga[mu].del[Psi2, mu]) - mPsi1 Psi1bar.Psi1 - mPsi2 Psi2bar.Psi2;
+LYukawa := -Y1 Psi1bar.Psi1 Phi - Y2 Psi2bar.Psi2 Phi;
+
+LTotal:= LScalar1 + LScalar2 + LScalarInt + LFermions + LYukawa;

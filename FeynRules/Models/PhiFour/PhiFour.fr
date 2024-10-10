@@ -1,0 +1,84 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "PhiFour";
+
+M$Information = {
+  Authors      -> {"S. Song"}, 
+  Version      -> "1.0.0",
+  Date         -> "07. 06. 2024",
+  Institutions -> {"Seoul National University"},
+  Emails       -> {"hypercube256@snu.ac.kr"}
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+(* Scalar bosons: physical scalars  *)
+  S[1] == {
+    ClassName       -> Phi,
+    SelfConjugate   -> True,
+    Mass            -> {mPhi, 1},
+    PropagatorLabel -> "Phi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> None,
+    ParticleName    -> "Phi",
+    FullName        -> "Phi"
+  },
+  S[2] == {
+    ClassName       -> Chi,
+    SelfConjugate   -> False,
+    Mass            -> {mChi, 0.23},
+    PropagatorLabel -> "Chi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> Forward,
+    ParticleName    -> "Chi",
+    FullName        -> "Chi"
+  }
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+  (* External parameters *)
+  lambda3 == { 
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Lambda],3],
+    Value            -> 0.65,
+    Description      -> "Triple-Phi coupling"
+  },
+  lambda41 == {
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Lambda],41],
+    Value            -> 0.31,
+    Description      -> "Quad-Phi coupling"
+  },
+  lambda42 == {
+    ParameterType    -> External,
+    TeX              -> Subscript[\[Lambda],42],
+    Value            -> 0.33,
+    Description      -> "Quad-Chi coupling"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LScalar1 := 1/2 del[Phi,mu] del[Phi,mu] - mPhi^2/2 Phi^2 - lambda3/6 Phi^3 - lambda41/24 Phi^4;
+LScalar2 := del[Chibar,mu] del[Chi,mu] - mChi^2 Chibar Chi - lambda42/4 (Chibar Chi)^2;
+
+LTotal:= LScalar1 + LScalar2;
