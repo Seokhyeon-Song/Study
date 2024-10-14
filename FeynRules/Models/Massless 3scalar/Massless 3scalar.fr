@@ -1,0 +1,41 @@
+M$ModelName = "Massless 3scalar";
+
+M$Information = {
+  Authors      -> {"S. Song"}, 
+  Version      -> "1.0.0",
+  Date         -> "24. 10. 2024",
+  Institutions -> {"Seoul National University"},
+  Emails       -> {"hypercube256@snu.ac.kr"}
+};
+
+M$ClassesDescription = {
+(* Scalar bosons: physical scalars  *)
+  S[1] == {
+    ClassName       -> Phi,
+    SelfConjugate   -> True,
+    Mass            -> mPhi,
+    PropagatorLabel -> "Phi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> None,
+    ParticleName    -> "Phi",
+    FullName        -> "Phi"
+  },
+  S[2] == {
+    ClassName       -> Chi,
+    SelfConjugate   -> False,
+    Mass            -> mChi,
+    PropagatorLabel -> "Chi",
+    PropagatorType  -> ScalarDash,
+    PropagatorArrow -> Forward,
+    ParticleName    -> "Chi",
+    FullName        -> "Chi"
+  }
+};
+
+M$Parameters = {
+  c3 == {
+    ParameterType -> External
+  }
+}
+
+LTotal := 1/2 del[Phi,mu] del[Phi,mu] - 1/2 mPhi^2 Phi^2 + del[Chibar,mu] del[Chi,mu] - mChi^2 Chibar Chi - c3 Phi Chibar Chi;
