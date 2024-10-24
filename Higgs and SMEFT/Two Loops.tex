@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage{enumerate}
 \usepackage{tikz,tikz-cd,tikz-3dplot,pgfplots}
 \usepackage{amsmath,amsthm,amssymb,amsfonts,amsthm}
@@ -40,63 +40,54 @@
 	metric convention: $(+,-,-,-)$
 	
 	Lagrangian:
-	\[\mathcal{L}=\frac{1}{2}\partial_{\mu}\phi\partial^{\mu}\phi-\frac{1}{2}M^{2}\phi^{2}+\partial_{\mu}\chi^{\dagger}\partial^{\mu}\chi-m^{2}\chi^{\dagger}\chi-g_{3}\phi\chi^{\dagger}\chi-g_{4}\phi^{2}\chi^{\dagger}\chi.\]
+	\[\mathcal{L}=\frac{1}{2}\partial_{\mu}\phi\partial^{\mu}\phi-\frac{1}{2}M^{2}\phi^{2}+\partial_{\mu}\chi^{\dagger}\partial^{\mu}\chi-g\phi\chi^{\dagger}\chi.\]
 	
 	\section{Diagram 1}
 	\begin{center}
-		\begin{tikzpicture}[thick]
+		\begin{tikzpicture}[thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=2]{stealth[sep=-0.75mm]}}}]
 			\tikzstyle{every node}=[font=\large]
-			\def\len{1cm}
-			\draw (-2*\len,0) -- (-\len,0);
-			\draw (2*\len,0) -- (\len,0);
-			\draw[dashed] ({sqrt(0.5)*\len},{sqrt(0.5)*\len}) arc (45:-225:\len);
-			\draw[dashed] ({sqrt(0.5)*\len},{sqrt(0.5)*\len}) arc (-45:-135:\len);
-			\draw ({sqrt(0.5)*\len},{sqrt(0.5)*\len}) arc (-45:225:\len);
+			\def\len{2cm}
+			\draw[dashed] (-2*\len,0) -- (-\len,0);
+			\draw[dashed] (2*\len,0) -- (\len,0);
+			\draw[dashed,postaction={decorate}] (\len,0) arc (0:90:\len);
+			\draw[dashed,postaction={decorate}] (0,\len) arc (90:180:\len);
+			\draw[dashed,postaction={decorate}] (-\len,0) arc (180:270:\len);
+			\draw[dashed,postaction={decorate}] (0,-\len) arc (270:360:\len);
+			\draw[dashed] (0,-\len) -- (0,\len);
+			\node at (-1.5*\len,0) [above] {$\rightarrow p$};
+			\node at (1.5*\len,0) [above] {$\rightarrow p$};
+			\node at (-0.7*\len,-0.7*\len) [below left] {$p+q$};
+			\node at (-0.7*\len,0.7*\len) [above left] {$q$};
+			\node at (0,0) [left] {$q-r\uparrow$};
+			\node at (0.7*\len,-0.7*\len) [below right] {$p+r$};
+			\node at (0.7*\len,0.7*\len) [above right] {$r$};
 		\end{tikzpicture}
 	\end{center}
-	\[\Pi_{1}(p^{2})=g_{3}^{4}\int\frac{d^{d}q}{(2\pi)^{d}}\frac{d^{d}r}{(2\pi)^{d}}\left(\frac{1}{q^{2}-m^{2}}\right)^{2}\frac{1}{r^{2}-m^{2}}\frac{1}{(p-q)^{2}-m^{2}}\frac{1}{(q-r)^{2}-M^{2}}.\]
-	First loop evaluation ($r$):
+	\[\Pi_{1}(p^{2})=g^{4}\int\frac{d^{d}q}{(2\pi)^{d}}\frac{d^{d}r}{(2\pi)^{d}}\frac{1}{q^{2}}\frac{1}{(p+q)^{2}}\frac{1}{r^{2}}\frac{1}{(p+r)^{2}}\frac{1}{(q-r)^{2}-M^{2}}.\]
+	We first deal with the $r$-integral:
 	\begin{align*}
-		\Pi_{1}(p^{2})&=g_{3}^{4}\int\frac{d^{d}q}{(2\pi)^{d}}\left(\frac{1}{q^{2}-m^{2}}\right)^{2}\frac{1}{(p-q)^{2}-m^{2}}\int\frac{d^{d}r}{(2\pi)^{d}}\frac{1}{r^{2}-m^{2}}\frac{1}{(q-r)^{2}-M^{2}}\\
-		&=:g_{3}^{4}\int\frac{d^{d}q}{(2\pi)^{d}}\left(\frac{1}{q^{2}-m^{2}}\right)^{2}\frac{1}{(p-q)^{2}-m^{2}}P_{1}.
+		I_{1}&:=\int\frac{d^{d}r}{(2\pi)^{d}}\frac{1}{r^{2}}\frac{1}{(p+r)^{2}}\frac{1}{(q-r)^{2}-M^{2}}\\
+		&=2\int\frac{d^{d}r}{(2\pi)^{d}}\int_{0}^{1}dx\,\int_{0}^{1-x}dy\frac{1}{[(1-x-y)r^{2}+y(p+r)^{2}+x((q-r)^{2}-M^{2})]^{3}}\\
+		&=2\int\frac{d^{d}r}{(2\pi)^{d}}\int_{0}^{1}dx\,\int_{0}^{1-x}dy\frac{1}{(r'^{2}-\Delta_{r})^{3}}\\
+		&=\frac{-i\Gamma(3-\frac{d}{2})}{(4\pi)^{d/2}}\int_{0}^{1}dx\,\int_{0}^{1-x}dy\frac{1}{\Delta_{r}^{3-d/2}},
 	\end{align*}
+	where $r'=r-xq+yp$ and $\Delta_{r}=-x(1-x)q^{2}-y(1-y)p^{2}-2xyqp+xM^{2}$.
+	Now the total integral becomes
+	\[\Pi_{1}(p^{2})=g^{4}\frac{-i\Gamma(3-\frac{d}{2})}{(4\pi)^{d/2}}\int_{0}^{1}dx\,\int_{0}^{1-x}dy\int\frac{d^{d}q}{(2\pi)^{d}}\frac{1}{q^{2}}\frac{1}{(p+q)^{2}}\frac{1}{\Delta_{r}^{3-d/2}}.\]
+	Let's look at the $q$-integral:
 	\begin{align*}
-		P_{1}&=\int dx\int\frac{d^{d}r}{(2\pi)^{d}}\Big((1-x)(r^{2}-m^{2})+x[(q-r)^{2}-M^{2}]\Big)^{-2}\\
-		&=\int dx\int\frac{d^{d}r}{(2\pi)^{d}}\Big((r-xq)^{2}-x^{2}q^{2}-(1-x)m^{2}+xq^{2}-xM^{2}\Big)^{-2}\\
-		&=\int_{0}^{1}dx\int\frac{d^{d}k}{(2\pi)^{d}}\Big(k^{2}-\Delta_{1}\Big)^{-2}\\
-		&=\frac{i}{(4\pi)^{2-\epsilon}}\Gamma(\epsilon)\int_{0}^{1}dx\,\frac{1}{\Delta_{1}^{\epsilon}},
+		I_{2}&:=\int\frac{d^{d}q}{(2\pi)^{d}}\frac{1}{q^{2}}\frac{1}{(p+q)^{2}}\frac{1}{\Delta_{r}^{3-d/2}}\\
+		&=\frac{\Gamma(7-\frac{d}{2})}{\Gamma(3-\frac{d}{2})}\int_{0}^{1}dz\int_{0}^{1-z}dw\int\frac{d^{d}q}{(2\pi)^{d}}\frac{z^{2-d/2}w(1-z-w)}{[z\Delta_{r}+w(p+q)^{2}+(1-z-w)q^{2}]^{7-d/2}}.
 	\end{align*}
-	where $l=r-xq$ and $\Delta_{1}=-x(1-x)q^{2}+(1-x)m^{2}+xM^{2}$.
-	
-	The integrand can be rewritten as following:
+	The denominator is
 	\begin{align*}
-		&\left(\frac{1}{q^{2}-m^{2}}\right)^{2}\frac{1}{r^{2}-m^{2}}\frac{1}{(p-q)^{2}-m^{2}}\frac{1}{(q-r)^{2}-M^{2}}\\
-		&=24\int dF_{4}\,x\Big(x(q^{2}-m^{2})+y(r^{2}-m^{2})+z[(p-q)^{2}-m^{2}]+w[(q-r)^{2}-M^{2}]\Big)^{-5}
+		D&:=z\Delta_{r}+w(p+q)^{2}+(1-z-w)q^{2}\\
+		&=(1-z-xz+x^{2}z)q^{2}+(-yz+y^{2}z+w)p^{2}+2(-xyz+w)pq+xzM^{2}\\
+		&=(1-z-xz+x^{2}z)\left(q+\frac{-xyz+w}{1-z-xz+x^{2}z}p\right)^{2}+\left(-\frac{(-xyz+w)^{2}}{1-z-xz+x^{2}z}-yz+y^{2}z+w\right)p^{2}+xzM^{2}\\
+		&=:(1-z-xz+x^{2}z)q'^{2}-\Delta_{q}.
 	\end{align*}
-	where $\int dF_{4}=\int_{0}^{1}dx\,dy\,dz\,dw\,\delta(x+y+z+w-1)$.
-	
-	\section{Diagram 2}
-	\begin{center}
-		\begin{tikzpicture}[thick]
-			\tikzstyle{every node}=[font=\large]
-			\def\len{1cm}
-			\draw (-2*\len,0) -- (-\len,0);
-			\draw (2*\len,0) -- (\len,0);
-			\draw[dashed] (0,0) circle (\len);
-			\draw (-0.2*\len,0.8*\len) -- (0.2*\len,1.2*\len);
-			\draw (-0.2*\len,1.2*\len) -- (0.2*\len,0.8*\len);
-		\end{tikzpicture}
-	\end{center}
-	
-	\section{Diagram 3}
-	\begin{center}
-		\begin{tikzpicture}[thick]
-			\tikzstyle{every node}=[font=\large]
-			\def\len{1cm}
-			\draw (-2*\len,0) -- (-\len,0);
-			\draw (2*\len,0) -- (\len,0);
-			\draw[dashed] (0,0) circle (\len);
-			\draw (0,-\len) -- (0,\len);
-		\end{tikzpicture}
-	\end{center}
+	Then
+	\[\int\frac{d^{d}q}{(2\pi)^{d}}\frac{1}{[(1-z-xz+x^{2}z)q'^{2}-\Delta_{q}]^{7-d/2}}=\frac{-i(-1)^{-d/2}}{(4\pi)^{d/2}}\frac{\Gamma(7-d)}{\Gamma(7-\frac{d}{2})}\frac{1}{(1-z-xz+x^{2}z)^{d/2}}\frac{1}{\Delta_{q}^{7-d}}.\]
+	Bringing all together,
+	\[\Pi_{1}(p^{2})=g^{4}\frac{-(-1)^{-d/2}}{(4\pi)^{d}}\Gamma(7-d)\int_{0}^{1}dx\int_{0}^{1-x}dy\int_{0}^{1}dz\int_{0}^{1-z}dw\frac{z^{2-d/2}w(1-z-w)}{(1-z-xz+x^{2}z)^{d/2}}\frac{1}{\Delta_{q}^{7-d}}.\]
 \end{document}

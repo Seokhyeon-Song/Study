@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  7 SEP 2024 22:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 OCT 2024 01:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -8,8 +8,8 @@ LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22>
 (c:/texlive/2022/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
-(c:/texlive/2022/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+(c:/texlive/2022/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@section=\count186
@@ -704,12 +704,12 @@ enefit from \pgfplotsset{compat=1.18} (current compat level: 1.16).
 * \topmargin=-31.42325pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=11.0pt
+* \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=59.0pt
-* \marginparsep=10.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -740,25 +740,26 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 {c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] (./Two Loop
 s.aux) ) 
 Here is how much of TeX's memory you used:
- 25942 strings out of 476024
- 670874 string characters out of 5794016
- 1866382 words of memory out of 5000000
- 45945 multiletter control sequences out of 15000+600000
- 520807 words of font info for 64 fonts, out of 8000000 for 9000
+ 26036 strings out of 476024
+ 672940 string characters out of 5794016
+ 1874382 words of memory out of 5000000
+ 46028 multiletter control sequences out of 15000+600000
+ 525754 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,12n,104p,758b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,10n,104p,758b,1150s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb><c
 :/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2022/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2022/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr8.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy8.pfb>
-Output written on "Two Loops.pdf" (2 pages, 86804 bytes).
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2022/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2022/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr7.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on "Two Loops.pdf" (2 pages, 106349 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 33 compressed objects within 1 object stream
+ 64 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
