@@ -7,6 +7,10 @@
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_errno.h>
 
+#include "vector.h"
+
+#define ALLOC_SIZE 100000
+
 gsl_complex Pi(double p, double Ms, double M) {
 	double zA = 0, zB = 0;
 	double sqfactor = 0;
@@ -137,12 +141,7 @@ fitresult bestfit(alt_hypo_params apars, gsl_integration_workspace* workspace) {
 	npars.M = apars.M;
 	npars.Gamma = totalwidth;
 
-	// Gradient.. Ascent?
-	double learning_rate = 1;
 	null_alt_params napars = { npars, apars };
-	null_alt_params prev_napars = napars;
-
-	double add_A = 0.5 * npars.A, add_M = 0.5 * npars.Gamma, add_Gamma = 0.5 * npars.Gamma;
 
 	gsl_function gdesc_A, gdesc_M, gdesc_Gamma, nloglike, aloglike;
 	gdesc_A.function = &graddesc_A;
@@ -154,66 +153,86 @@ fitresult bestfit(alt_hypo_params apars, gsl_integration_workspace* workspace) {
 	gdesc_M.params = reinterpret_cast<void*>(&napars);
 	gdesc_Gamma.params = reinterpret_cast<void*>(&napars);
 	nloglike.params = reinterpret_cast<void*>(&napars);
-	gsl_integration_qag(&nloglike, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &prev_result_n, &error);
+	
+	// Approximating Hessian
+	null_alt_params prev_napars = napars;
 
-	for (int i = 0; i < 200; i++) {
-		gsl_integration_qag(&gdesc_A, xlow, xhigh, 1e-10, 1e-5, 5000, 6, workspace, &result_A, &error);
-		gsl_integration_qag(&gdesc_M, xlow, xhigh, 1e-10, 1e-5, 5000, 6, workspace, &result_M, &error);
-		gsl_integration_qag(&gdesc_Gamma, xlow, xhigh, 1e-10, 1e-5, 5000, 6, workspace, &result_Gamma, &error);
+	gsl_integration_qag(&gdesc_A, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_A, &error);
+	gsl_integration_qag(&gdesc_M, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_M, &error);
+	gsl_integration_qag(&gdesc_Gamma, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_Gamma, &error);
+	Vector grad_zero(result_A, result_M, result_Gamma);
 
-		while (true) {
+	napars.npars.A *= 1.01;
+	gsl_integration_qag(&gdesc_A, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_A, &error);
+	gsl_integration_qag(&gdesc_M, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_M, &error);
+	gsl_integration_qag(&gdesc_Gamma, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_Gamma, &error);
+	Vector delta_A = Vector(result_A, result_M, result_Gamma) - grad_zero;
+	napars = prev_napars;
+
+	napars.npars.M += 0.01 * npars.Gamma;
+	gsl_integration_qag(&gdesc_A, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_A, &error);
+	gsl_integration_qag(&gdesc_M, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_M, &error);
+	gsl_integration_qag(&gdesc_Gamma, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_Gamma, &error);
+	Vector delta_M = Vector(result_A, result_M, result_Gamma) - grad_zero;
+	napars = prev_napars;
+
+	napars.npars.Gamma *= 1.01;
+	gsl_integration_qag(&gdesc_A, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_A, &error);
+	gsl_integration_qag(&gdesc_M, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_M, &error);
+	gsl_integration_qag(&gdesc_Gamma, xlow, xhigh, 1e-10, 1e-5, ALLOC_SIZE, 6, workspace, &result_Gamma, &error);
+	Vector delta_Gamma = Vector(result_A, result_M, result_Gamma) - grad_zero;
+	napars = prev_napars;
+
+	double hessianmatrix[3][3] =
+	{ {delta_A.x / (0.01 * npars.A),delta_M.x / (0.01 * npars.Gamma),delta_Gamma.x / (0.01 * npars.Gamma)},
+		{delta_A.y / (0.01 * npars.A),delta_M.y / (0.01 * npars.Gamma),delta_Gamma.y / (0.01 * npars.Gamma)},
+		{delta_A.z / (0.01 * npars.A),delta_M.z / (0.01 * npars.Gamma),delta_Gamma.z / (0.01 * npars.Gamma)} };
+	Matrix hessian(hessianmatrix);
+	Matrix invhessian(hessian.invmat, hessian.matrix);
+
+	gsl_integration_qag(&nloglike, xlow, xhigh, 0, 1e-8, ALLOC_SIZE, 6, workspace, &prev_result_n, &error);
+
+	// Gradient Ascent
+	double learning_rate = 1;
+	double rate_A, rate_M, rate_Gamma;
+	Vector descent_params;
+	for (int i = 0; i < 100; i++) {
+		gsl_integration_qag(&gdesc_A, xlow, xhigh, 0, 1e-2, ALLOC_SIZE, 6, workspace, &result_A, &error);
+		gsl_integration_qag(&gdesc_M, xlow, xhigh, 0, 1e-2, ALLOC_SIZE, 6, workspace, &result_M, &error);
+		gsl_integration_qag(&gdesc_Gamma, xlow, xhigh, 0, 1e-2, ALLOC_SIZE, 6, workspace, &result_Gamma, &error);
+		grad_zero = Vector(result_A, result_M, result_Gamma);
+		descent_params = Transform(grad_zero, invhessian);
+		
+		for (int j = 0; j < 3; j++) {
 			napars = prev_napars;
-			napars.npars.A += add_A * GSL_SIGN(result_A);
-			gsl_integration_qag(&nloglike, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &result_n, &error);
-			if (result_n > (1 + 1e-6) * prev_result_n)
-				break;
-			add_A *= 0.5;
-		}
-		while (true) {
-			napars = prev_napars;
-			napars.npars.M += add_M * GSL_SIGN(result_M);
-			gsl_integration_qag(&nloglike, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &result_n, &error);
-			if (result_n > (1 + 1e-6) * prev_result_n)
-				break;
-			add_M *= 0.5;
-		}
-		while (true) {
-			napars = prev_napars;
-			napars.npars.Gamma += add_Gamma * GSL_SIGN(result_Gamma);
-			gsl_integration_qag(&nloglike, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &result_n, &error);
-			if (result_n > (1 + 1e-6) * prev_result_n)
-				break;
-			add_Gamma *= 0.5;
-		}
-		while (true) {
-			napars = prev_napars;
-			napars.npars.A += add_A * GSL_SIGN(result_A);
-			napars.npars.M += add_M * GSL_SIGN(result_M);
-			napars.npars.Gamma += add_Gamma * GSL_SIGN(result_Gamma);
-			gsl_integration_qag(&nloglike, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &result_n, &error);
-			if (result_n > (1 + 1e-6) * prev_result_n) {
+			napars.npars.A += learning_rate * descent_params.x;
+			napars.npars.M += learning_rate * descent_params.y;
+			napars.npars.Gamma += learning_rate * descent_params.z;
+			gsl_integration_qag(&nloglike, xlow, xhigh, 0, 1e-8, ALLOC_SIZE, 6, workspace, &result_n, &error);
+			if (prev_result_n < result_n) {
 				prev_result_n = result_n;
 				break;
 			}
-			add_A *= 0.5;
-			add_M *= 0.5;
-			add_Gamma *= 0.5;
+			learning_rate *= 0.5;
 		}
 
-		if (add_A / napars.npars.A < 1e-6 && add_M / napars.npars.Gamma < 1e-6 && add_Gamma / napars.npars.Gamma < 1e-6) {
+		rate_A = std::abs(descent_params.x / napars.npars.A);
+		rate_M = std::abs(descent_params.y / napars.npars.M);
+		rate_Gamma = std::abs(descent_params.z / napars.npars.Gamma);
+
+		if (learning_rate * std::max(rate_A, std::max(rate_M, rate_Gamma)) < 1e-6) {
 			break;
 		}
-		prev_napars = napars;
 	}
 
 	aloglike.params = reinterpret_cast<void*>(&apars);
-	gsl_integration_qag(&aloglike, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &result_a, &error);
+	gsl_integration_qag(&aloglike, xlow, xhigh, 0, 1e-8, ALLOC_SIZE, 6, workspace, &result_a, &error);
 
 	gsl_function aprob;
 	aprob.function = &alt_hypo_signalprob;
 	aprob.params = reinterpret_cast<void*>(&apars);
 	double asignalprob;
-	gsl_integration_qag(&aprob, xlow, xhigh, 1e-14, 1e-6, 5000, 6, workspace, &asignalprob, &error);
+	gsl_integration_qag(&aprob, xlow, xhigh, 0, 1e-3, ALLOC_SIZE, 6, workspace, &asignalprob, &error);
 
 	double NS = 2 * totalwidth * asignalprob * 23.66 / (result_a - result_n);
 
@@ -225,12 +244,11 @@ int main() {
 	std::ofstream writeFile;
 	writeFile.open("fitresult.txt");
 
-	gsl_integration_workspace* workspace = gsl_integration_workspace_alloc(10000);
+	gsl_integration_workspace* workspace = gsl_integration_workspace_alloc(ALLOC_SIZE);
+
 	// True Parameters
 	alt_hypo_params apars;
-	fitresult res;
 	apars.M = 1;
-	apars.C = 0.04;
 
 	/*
 	//Debug
@@ -241,28 +259,32 @@ int main() {
 	res = bestfit(apars, workspace);
 	std::cout << res.NS << std::endl;
 	*/
-	
-	int domain_resolution = 100;
-	writeFile << "alpha/4Pi: " << apars.C << std::endl;
+	int domain_resolution = 1000;
+	double totalwidth = 0.3;
 	writeFile << "Mother particle mass is fixed to M=1GeV" << std::endl;
-	writeFile << "vertical: Gamma = " << 0.4 / domain_resolution << "M to 0.4M" << std::endl;
-	writeFile << "horizontal: m = 0.5M-Gamma to 0.5M+Gamma" << std::endl;
+	std::cout << "Insert total width (GeV):";
+	std::cin >> totalwidth;
+	writeFile << "Total width is " << totalwidth << "GeV" << std::endl;
+	writeFile << "vertical: alpha/4Pi = 0 to " << totalwidth * M_1_PI << std::endl;
+	writeFile << "horizontal: m = 0.5M - totalwidth to 0.5M + totalwidth" << std::endl;
+	writeFile << "Data";
 
-	for (int gamma_div = 1; gamma_div <= domain_resolution; gamma_div++) {
+	for (int m_div = 0; m_div <= domain_resolution; m_div++)
+		writeFile << " " << 0.5 * apars.M - totalwidth + 2.0 * totalwidth * m_div / domain_resolution;
+	writeFile << std::endl;
+
+	for (int c_div = 1; c_div <= domain_resolution; c_div++) {
+		apars.C = totalwidth * M_1_PI * c_div / domain_resolution;
+		writeFile << apars.C << " ";
 		for (int m_div = 0; m_div <= domain_resolution; m_div++) {
-			apars.Gamma = 0.1 * apars.M + 0.3 * apars.M * gamma_div / domain_resolution;
-			apars.Msmall = 0.5 * apars.M - apars.Gamma + 2.0 * apars.Gamma * m_div / domain_resolution;
-			double totalwidth = apars.Gamma + apars.C * GSL_IMAG(Pi(apars.M, apars.Msmall, apars.M));
+			apars.Msmall = 0.5 * apars.M - totalwidth + 2.0 * totalwidth * m_div / domain_resolution;
+			apars.Gamma = totalwidth - apars.C * GSL_IMAG(Pi(apars.M, apars.Msmall, apars.M));
 			apars.A = 1e-3 * gsl_pow_2(totalwidth) / gsl_pow_2(apars.M);
-
-			res = bestfit(apars, workspace);
-			writeFile << (int)res.NS << " ";
-			std::cout << m_div << std::endl;
+			writeFile << bestfit(apars, workspace).NS << " ";
 		}
 		writeFile << std::endl;
-		std::cout << 100.0 * gamma_div / domain_resolution << "% done..." << std::endl;
+		std::cout << 100.0 * c_div / domain_resolution << "% done..." << std::endl;
 	}
-	
 	
 	writeFile.close();
 	return 0;
