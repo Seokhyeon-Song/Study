@@ -8,6 +8,7 @@
 \usepackage{braket}
 \usepackage{slashed}
 \usepackage{tensor}
+\usepackage{caption, subcaption}
 \usepackage{indentfirst}
 \usepackage[a4paper, total={6.5in, 9in}]{geometry}
 \usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing}
@@ -65,6 +66,11 @@
 	In this report, I assumed that the invariant masses of the incoming particles are uniformly distributed along $M_{\mathrm{peak}}-2\Gamma_{\mathrm{tot}}<m_{\mathrm{in}}<M_{\mathrm{peak}}+2\Gamma_{\mathrm{tot}}$, where $M_{\mathrm{peak}}$ is the peak of resonance (real-on-shell mass) and $\Gamma_{\mathrm{tot}}$ is the total decay width of $\Phi$.
 	
 	\section{Likelihood-Ratio Test}
+	\subsection{Unbinned Analysis without Momentum Uncertainties}
+	If there are no uncertainties in momentum measurement, then we may perform the unbinned analysis.
+	Suppose we got $N$ samples $x_{1},\dots,x_{N}$.
+	For each sample $x_{i}$, $\mu_{i}=\mu(x_{i})$ is its invariant mass and $S(x_{i})$ is its measurement result, where $S(x_{i})=1$ if the detector counted it as a signal and $S(x_{i})=0$ for a background.
+	
 	The null hypothesis and the alternative hypothesis are
 	\begin{align*}
 		H_{0}&:P_{0}(\mu;A,M,\Gamma)=\frac{A\mu^{2}}{(\mu^{2}-M^{2})^{2}+\Gamma^{2}},\\
@@ -72,10 +78,6 @@
 	\end{align*}
 	We can see that the alternative hypothesis has one extra degree of freedom in fitting parameters ($C$), since we have fixed $m$.
 	
-	\subsection{Unbinned Analysis without Momentum Uncertainties}
-	If there are no uncertainties in momentum measurement, then we may perform the unbinned analysis.
-	Suppose we got $N$ samples $x_{1},\dots,x_{N}$.
-	For each sample $x_{i}$, $\mu_{i}=\mu(x_{i})$ is its invariant mass and $S(x_{i})$ is its measurement result, where $S(x_{i})=1$ if the detector counted it as a signal and $S(x_{i})=0$ for a background.
 	Then the likelihood functions are given by
 	\begin{align*}
 		L_{0}(\theta)&=\prod_{i=1}^{N}\Big[S(x_{i})P_{0}(\mu_{i};\theta)+(1-S(x_{i}))(1-P_{0}(\mu_{i};\theta))\Big],\\
@@ -111,8 +113,23 @@
 	
 	Also, I found out that if $A$ is not so big (peak probability $\lesssim 10^{-2}$), $N$ is proportional to $A^{-1}$, which means that the total count of signal $N_{S}$ really matters.
 	
+	\subsection{Binned Analysis}
+	To account for momentum uncertainties, we divide the range of $\mu$ into the bins with specific momentum ranges.
+	Suppose that the range of $\mu$ of the $i$th bin is $\mu_{i;\mathrm{lower}}<\mu<\mu_{i;\mathrm{upper}}=\mu_{i;\mathrm{lower}}+\Delta\mu$.
+	Then
+	\begin{align*}
+		H_{0}&:P_{0}(i;A,M,\Gamma)=\frac{1}{\Delta\mu}\int_{\mu_{i;\mathrm{lower}}}^{\mu_{i;\mathrm{upper}}}d\mu\,\frac{A\mu^{2}}{(\mu^{2}-M^{2})^{2}+\Gamma^{2}}=P_{0,i}(\theta),\\
+		H_{1}&:P_{1}(i;A,M,\Gamma,C\neq0))=\frac{1}{\Delta\mu}\int_{\mu_{i;\mathrm{lower}}}^{\mu_{i;\mathrm{upper}}}d\mu\,\frac{A\mu^{2}}{|\mu^{2}-M^{2}+i\Gamma+C\Pi(\mu,m)|^{2}}=P_{1,i}(\theta,C).
+	\end{align*}
+	If there are in total $k$ bins, estimated log-likelihood functions are
+	\begin{align*}
+		\mathcal{L}_{0}&=\max_{\theta}\frac{N}{k}\sum_{i=1}^{k}\Big[P_{1,i}\ln P_{0,i}(\theta)+(1-P_{1,i})\ln(1-P_{0,i}(\theta))\Big],\\
+		\mathcal{L}_{1}&=\frac{N}{k}\sum_{i=1}^{k}\Big[P_{1,i}\ln P_{1,i}+(1-P_{1,i})\ln(1-P_{1,i})\Big].
+	\end{align*}
+	
+	
 	\subsection{Note?}
-	Gradient descent...
+	Gradient ascent...
 	\[\frac{\partial}{\partial\theta}\ln L_{0}(\theta)=\frac{N}{4\Gamma_{\mathrm{tot}}}\int_{M_{t}-2\Gamma_{\mathrm{tot}}}^{M_{t}-2\Gamma_{\mathrm{tot}}}d\mu\,\left[\frac{P(\mu)}{P_{0}(\mu;\theta)}-\frac{1-P(\mu)}{1-P_{0}(\mu;\theta)}\right]\frac{\partial P_{0}(\mu;\theta)}{\partial\theta}.\]
 	
 	Real-on-shell when $M>2m$:
@@ -138,6 +155,32 @@
 	\[A=\frac{2}{M^{2}}\]
 	and
 	\[B=-AM^{2}=-2.\]
+	
+	\section{Result}
+	Figure \ref{fig:unbinned} represents the required total signal counts for unbinned analysis.
+	We can see that the discrepancy between Breit-Wigner distribution and the exact distribution could be easily detected when the loop particle is around the half of the mother particle (or lighter), and the coupling between mother particle and loop particle is strong.
+	The analysis is slightly better if the resonance is narrower, but the difference is very subtle.
+	
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{unbinned_0.01GeV.pdf}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{unbinned_0.1GeV.pdf}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{unbinned_0.4GeV.pdf}
+			\caption{}
+		\end{subfigure}
+		\caption{Unbinned analysis result, with total width (a) $0.01\,\mathrm{GeV}$, (b) $0.1\,\mathrm{GeV}$, (c) $0.4\,\mathrm{GeV}$.}
+		\label{fig:unbinned}
+	\end{figure}
 	
 	\bibliographystyle{unsrt}
 	\bibliography{references}

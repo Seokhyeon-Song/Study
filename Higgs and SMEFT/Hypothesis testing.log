@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  22 NOV 2024 21:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 NOV 2024 21:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -739,6 +739,30 @@ Package: tensor 2004/12/20 v2.1 tensor indices package (PGR)
 \tnsr@Sbe=\toks51
 \ncld@Mno=\toks52
 )
+(c:/texlive/2022/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2022/03/01 v3.6b Customizing captions (AR)
+
+(c:/texlive/2022/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
+\caption@tempdima=\dimen281
+\captionmargin=\dimen282
+\caption@leftmargin=\dimen283
+\caption@rightmargin=\dimen284
+\caption@width=\dimen285
+\caption@indent=\dimen286
+\caption@parindent=\dimen287
+\caption@hangindent=\dimen288
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count310
+\c@continuedfloat=\count311
+Package caption Info: hyperref package is loaded.
+)
+(c:/texlive/2022/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
+\c@subfigure=\count312
+\c@subtable=\count313
+)
 (c:/texlive/2022/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
@@ -748,17 +772,17 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (c:/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count310
-\Gm@cntv=\count311
-\c@Gm@tempcnt=\count312
-\Gm@bindingoffset=\dimen281
-\Gm@wd@mp=\dimen282
-\Gm@odd@mp=\dimen283
-\Gm@even@mp=\dimen284
-\Gm@layoutwidth=\dimen285
-\Gm@layoutheight=\dimen286
-\Gm@layouthoffset=\dimen287
-\Gm@layoutvoffset=\dimen288
+\Gm@cnth=\count314
+\Gm@cntv=\count315
+\c@Gm@tempcnt=\count316
+\Gm@bindingoffset=\dimen289
+\Gm@wd@mp=\dimen290
+\Gm@odd@mp=\dimen291
+\Gm@even@mp=\dimen292
+\Gm@layoutwidth=\dimen293
+\Gm@layoutheight=\dimen294
+\Gm@layouthoffset=\dimen295
+\Gm@layoutvoffset=\dimen296
 \Gm@dimlist=\toks53
 )
 (c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
@@ -769,50 +793,50 @@ orations.markings.code.tex))
 brarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-\c@theorem=\count313
-\c@corollary=\count314
-\c@definition=\count315
-\c@remark=\count316
+\c@theorem=\count317
+\c@corollary=\count318
+\c@definition=\count319
+\c@remark=\count320
 
 (c:/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count317
+\l__color_backend_stack_int=\count321
 \l__pdf_internal_box=\box65
 )
 (./Hypothesis testing.aux)
 \openout1 = `"Hypothesis testing.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
 
 (c:/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count318
-\scratchdimen=\dimen289
+\scratchcounter=\count322
+\scratchdimen=\dimen297
 \scratchbox=\box66
-\nofMPsegments=\count319
-\nofMParguments=\count320
+\nofMPsegments=\count323
+\nofMParguments=\count324
 \everyMPshowfont=\toks54
-\MPscratchCnt=\count321
-\MPscratchDim=\dimen290
-\MPnumerator=\count322
-\makeMPintoPDFobject=\count323
+\MPscratchCnt=\count325
+\MPscratchDim=\dimen298
+\MPnumerator=\count326
+\makeMPintoPDFobject=\count327
 \everyMPtoPDFconversion=\toks55
 ) (c:/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -826,11 +850,13 @@ e
 Package pgfplots notification 'compat/show suggested version=true': you might b
 enefit from \pgfplotsset{compat=1.18} (current compat level: 1.16).
 
-Package hyperref Info: Link coloring OFF on input line 40.
+Package hyperref Info: Link coloring OFF on input line 41.
 (./Hypothesis testing.out) (./Hypothesis testing.out)
 \@outlinefile=\write4
 \openout4 = `"Hypothesis testing.out"'.
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -866,18 +892,18 @@ Package hyperref Info: Link coloring OFF on input line 40.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 43.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
 
 (c:/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 43.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
 
 
 (c:/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 43
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 44
 .
 
 (c:/texlive/2022/texmf-dist/tex/latex/jknapltx/ursfs.fd
@@ -888,16 +914,40 @@ LaTeX Warning: No \author given.
 
 [1
 
-{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-(./Hypothesis testing.bbl) [3] (./Hypothesis testing.aux)
+{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+<unbinned_0.01GeV.pdf, id=66, 361.35pt x 332.24126pt>
+File: unbinned_0.01GeV.pdf Graphic file (type pdf)
+<use unbinned_0.01GeV.pdf>
+Package pdftex.def Info: unbinned_0.01GeV.pdf  used on input line 168.
+(pdftex.def)             Requested size: 140.92792pt x 129.57356pt.
+<unbinned_0.1GeV.pdf, id=67, 361.35pt x 338.26375pt>
+File: unbinned_0.1GeV.pdf Graphic file (type pdf)
+<use unbinned_0.1GeV.pdf>
+Package pdftex.def Info: unbinned_0.1GeV.pdf  used on input line 173.
+(pdftex.def)             Requested size: 140.92792pt x 131.92232pt.
+<unbinned_0.4GeV.pdf, id=68, 361.35pt x 344.28625pt>
+File: unbinned_0.4GeV.pdf Graphic file (type pdf)
+<use unbinned_0.4GeV.pdf>
+Package pdftex.def Info: unbinned_0.4GeV.pdf  used on input line 178.
+(pdftex.def)             Requested size: 140.92792pt x 134.27109pt.
+
+(./Hypothesis testing.bbl) [4 <./unbinned_0.01GeV.pdf> <./unbinned_0.1GeV.pdf
+
+pdfTeX warning: pdflatex.exe (file ./unbinned_0.1GeV.pdf): PDF inclusion: multi
+ple pdfs with page group included in a single page
+> <./unbinned_0.4GeV.pdf
+
+pdfTeX warning: pdflatex.exe (file ./unbinned_0.4GeV.pdf): PDF inclusion: multi
+ple pdfs with page group included in a single page
+>] (./Hypothesis testing.aux)
 Package rerunfilecheck Info: File `"Hypothesis testing".out' has not changed.
-(rerunfilecheck)             Checksum: 15C451A01B87F04FC2CCC3704402A139;640.
+(rerunfilecheck)             Checksum: 0E79078E21413172B526A12DC2DABAFE;848.
  ) 
 Here is how much of TeX's memory you used:
- 32618 strings out of 476024
- 775620 string characters out of 5794016
- 1868382 words of memory out of 5000000
- 52488 multiletter control sequences out of 15000+600000
+ 34040 strings out of 476024
+ 803572 string characters out of 5794016
+ 1869382 words of memory out of 5000000
+ 53895 multiletter control sequences out of 15000+600000
  527008 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,12n,104p,767b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -915,10 +965,10 @@ nts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsy7.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/sy
 mbols/msam10.pfb>
-Output written on "Hypothesis testing.pdf" (3 pages, 181147 bytes).
+Output written on "Hypothesis testing.pdf" (4 pages, 3630368 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
- 14 named destinations out of 1000 (max. 500000)
- 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 206 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
+ 18 named destinations out of 1000 (max. 500000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 
