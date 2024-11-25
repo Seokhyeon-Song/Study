@@ -104,8 +104,8 @@
 	\[\ln L_{0}(\theta)\simeq\frac{N}{4\Gamma_{\mathrm{tot}}}\int_{M_{t}-2\Gamma_{\mathrm{tot}}}^{M_{t}-2\Gamma_{\mathrm{tot}}}d\mu\,\Big[P(\mu)\ln P_{0}(\mu;\theta)+(1-P(\mu))\ln(1-P_{0}(\mu;\theta))\Big],\]
 	so we can maximise $\ln L_{0}(\theta)$ with numerical computation.
 	
-	One we have calculated $\mathcal{L}_{0}=\max_{\theta}[\ln L_{0}(\theta)]$ and $\mathcal{L}_{1}=\max_{\theta,C}[\ln L_{1}(\theta,C)]$, the log-likelihood-ratio
-	\[t:=2\ln\mathcal{L}_{1}-2\ln\mathcal{L}_{0}\]
+	Once we have calculated $\mathcal{L}_{0}=\max_{\theta}[\ln L_{0}(\theta)]$ and $\mathcal{L}_{1}=\max_{\theta,C}[\ln L_{1}(\theta,C)]$, the log-likelihood-ratio
+	\[t:=2\mathcal{L}_{1}-2\mathcal{L}_{0}\]
 	is said to be following the $\chi^{2}(1)$ distribution.
 	However, since the physically meaningful value of the extra parameter $C$ lies on the nonnegative half plane, our test statistics $t$ actually follows the $\frac{1}{2}\chi^{2}(1)$ distribution\cite{cowan2011asymptotic}.
 	Then, if we want $5\sigma$ significance level, we should have $t>23.66$.
@@ -127,39 +127,9 @@
 		\mathcal{L}_{1}&=\frac{N}{k}\sum_{i=1}^{k}\Big[P_{1,i}\ln P_{1,i}+(1-P_{1,i})\ln(1-P_{1,i})\Big].
 	\end{align*}
 	
-	
-	\subsection{Note?}
-	Gradient ascent...
-	\[\frac{\partial}{\partial\theta}\ln L_{0}(\theta)=\frac{N}{4\Gamma_{\mathrm{tot}}}\int_{M_{t}-2\Gamma_{\mathrm{tot}}}^{M_{t}-2\Gamma_{\mathrm{tot}}}d\mu\,\left[\frac{P(\mu)}{P_{0}(\mu;\theta)}-\frac{1-P(\mu)}{1-P_{0}(\mu;\theta)}\right]\frac{\partial P_{0}(\mu;\theta)}{\partial\theta}.\]
-	
-	Real-on-shell when $M>2m$:
-	\[\mathrm{Re}\Pi(M^{2})=-\frac{2\sqrt{M^{2}-4m^{2}}}{M}\arctanh\frac{\sqrt{M^{2}-4m^{2}}}{M}+AM^{2}+B\]
-	\[\mathrm{Re}\Pi'(M^{2})=-\frac{1}{M^{2}}-\frac{4m^{2}}{M^{3}\sqrt{M^{2}-4m^{2}}}\arctanh\frac{\sqrt{M^{2}-4m^{2}}}{M}+A\]
-	So
-	\[A=\frac{1}{M^{2}}+\frac{4m^{2}}{M^{3}\sqrt{M^{2}-4m^{2}}}\arctanh\frac{\sqrt{M^{2}-4m^{2}}}{M}\]
-	and
-	\[B=\frac{2M^{2}-12m^{2}}{M\sqrt{M^{2}-4m^{2}}}\arctanh\frac{\sqrt{M^{2}-4m^{2}}}{M}-1.\]
-	
-	Real-on-shell when $M<2m$:
-	\[\mathrm{Re}\Pi(M^{2})=-\frac{2\sqrt{4m^{2}-M^{2}}}{M}\arctan\frac{M}{\sqrt{4m^{2}-M^{2}}}+AM^{2}+B\]
-	\[\mathrm{Re}\Pi'(M^{2})=-\frac{1}{M^{2}}+\frac{4m^{2}}{M^{3}\sqrt{4m^{2}-M^{2}}}\arctan\frac{M}{\sqrt{4m^{2}-M^{2}}}+A\]
-	So
-	\[A=\frac{1}{M^{2}}-\frac{4m^{2}}{M^{3}\sqrt{4m^{2}-M^{2}}}\arctan\frac{M}{\sqrt{4m^{2}-M^{2}}}\]
-	and
-	\[B=\frac{12m^{2}-2M^{2}}{M\sqrt{4m^{2}-M^{2}}}\arctan\frac{M}{\sqrt{4m^{2}-M^{2}}}-1.\]
-	
-	Special case of $M=2m$:
-	\[\mathrm{Re}\Pi(M^{2})=AM^{2}+B\]
-	\[\mathrm{Re}\Pi'(M^{2})=-\frac{2}{M^{2}}+A\]
-	So
-	\[A=\frac{2}{M^{2}}\]
-	and
-	\[B=-AM^{2}=-2.\]
-	
 	\section{Result}
 	Figure \ref{fig:unbinned} represents the required total signal counts for unbinned analysis.
-	We can see that the discrepancy between Breit-Wigner distribution and the exact distribution could be easily detected when the loop particle is around the half of the mother particle (or lighter), and the coupling between mother particle and loop particle is strong.
-	The analysis is slightly better if the resonance is narrower, but the difference is very subtle.
+	We can see that the discrepancy between Breit-Wigner distribution and the exact distribution could be easily detected when the mass of the loop particle is about the half of mass of the mother particle, and the coupling between mother particle and loop particle is strong.
 	
 	\begin{figure}[h]
 		\centering
@@ -180,6 +150,29 @@
 		\end{subfigure}
 		\caption{Unbinned analysis result, with total width (a) $0.01\,\mathrm{GeV}$, (b) $0.1\,\mathrm{GeV}$, (c) $0.4\,\mathrm{GeV}$.}
 		\label{fig:unbinned}
+	\end{figure}
+	
+	Figure \ref{fig:binned} represents the required total signal counts for binned analysis, where each bin contains invariant mass interval whose length is $0.05\,\mathrm{GeV}$.
+	
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{binned_0.1GeV.pdf}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{binned_0.2GeV.pdf}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{binned_0.4GeV.pdf}
+			\caption{}
+		\end{subfigure}
+		\caption{Binned analysis result, with total width (a) $0.1\,\mathrm{GeV}$, (b) $0.2\,\mathrm{GeV}$, (c) $0.4\,\mathrm{GeV}$. Each bin's size is $0.05\,\mathrm{GeV}$.}
+		\label{fig:binned}
 	\end{figure}
 	
 	\bibliographystyle{unsrt}

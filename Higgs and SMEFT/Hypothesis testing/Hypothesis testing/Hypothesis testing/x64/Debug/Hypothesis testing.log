@@ -1,4 +1,5 @@
 ﻿  main.cpp
+C:\Users\hypercube256\Desktop\Study\Higgs and SMEFT\Hypothesis testing\Hypothesis testing\Hypothesis testing\main.cpp(307,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Hypothesis testing.vcxproj -> C:\Users\hypercube256\Desktop\Study\Higgs and SMEFT\Hypothesis testing\Hypothesis testing\x64\Debug\Hypothesis testing.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

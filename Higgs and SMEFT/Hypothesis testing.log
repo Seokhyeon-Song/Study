@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 NOV 2024 21:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  26 NOV 2024 00:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -914,24 +914,39 @@ LaTeX Warning: No \author given.
 
 [1
 
-{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<unbinned_0.01GeV.pdf, id=66, 361.35pt x 332.24126pt>
+{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+<unbinned_0.01GeV.pdf, id=58, 361.35pt x 332.24126pt>
 File: unbinned_0.01GeV.pdf Graphic file (type pdf)
 <use unbinned_0.01GeV.pdf>
-Package pdftex.def Info: unbinned_0.01GeV.pdf  used on input line 168.
+Package pdftex.def Info: unbinned_0.01GeV.pdf  used on input line 138.
 (pdftex.def)             Requested size: 140.92792pt x 129.57356pt.
-<unbinned_0.1GeV.pdf, id=67, 361.35pt x 338.26375pt>
+<unbinned_0.1GeV.pdf, id=59, 361.35pt x 338.26375pt>
 File: unbinned_0.1GeV.pdf Graphic file (type pdf)
 <use unbinned_0.1GeV.pdf>
-Package pdftex.def Info: unbinned_0.1GeV.pdf  used on input line 173.
+Package pdftex.def Info: unbinned_0.1GeV.pdf  used on input line 143.
 (pdftex.def)             Requested size: 140.92792pt x 131.92232pt.
-<unbinned_0.4GeV.pdf, id=68, 361.35pt x 344.28625pt>
+<unbinned_0.4GeV.pdf, id=60, 361.35pt x 344.28625pt>
 File: unbinned_0.4GeV.pdf Graphic file (type pdf)
 <use unbinned_0.4GeV.pdf>
-Package pdftex.def Info: unbinned_0.4GeV.pdf  used on input line 178.
+Package pdftex.def Info: unbinned_0.4GeV.pdf  used on input line 148.
+(pdftex.def)             Requested size: 140.92792pt x 134.27109pt.
+<binned_0.1GeV.pdf, id=62, 361.35pt x 338.26375pt>
+File: binned_0.1GeV.pdf Graphic file (type pdf)
+<use binned_0.1GeV.pdf>
+Package pdftex.def Info: binned_0.1GeV.pdf  used on input line 161.
+(pdftex.def)             Requested size: 140.92792pt x 131.92232pt.
+<binned_0.2GeV.pdf, id=63, 361.35pt x 344.28625pt>
+File: binned_0.2GeV.pdf Graphic file (type pdf)
+<use binned_0.2GeV.pdf>
+Package pdftex.def Info: binned_0.2GeV.pdf  used on input line 166.
+(pdftex.def)             Requested size: 140.92792pt x 134.27109pt.
+<binned_0.4GeV.pdf, id=64, 361.35pt x 344.28625pt>
+File: binned_0.4GeV.pdf Graphic file (type pdf)
+<use binned_0.4GeV.pdf>
+Package pdftex.def Info: binned_0.4GeV.pdf  used on input line 171.
 (pdftex.def)             Requested size: 140.92792pt x 134.27109pt.
 
-(./Hypothesis testing.bbl) [4 <./unbinned_0.01GeV.pdf> <./unbinned_0.1GeV.pdf
+(./Hypothesis testing.bbl [3 <./unbinned_0.01GeV.pdf> <./unbinned_0.1GeV.pdf
 
 pdfTeX warning: pdflatex.exe (file ./unbinned_0.1GeV.pdf): PDF inclusion: multi
 ple pdfs with page group included in a single page
@@ -939,15 +954,27 @@ ple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex.exe (file ./unbinned_0.4GeV.pdf): PDF inclusion: multi
 ple pdfs with page group included in a single page
->] (./Hypothesis testing.aux)
+> <./binned_0.1GeV.pdf
+
+pdfTeX warning: pdflatex.exe (file ./binned_0.1GeV.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+> <./binned_0.2GeV.pdf
+
+pdfTeX warning: pdflatex.exe (file ./binned_0.2GeV.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+> <./binned_0.4GeV.pdf
+
+pdfTeX warning: pdflatex.exe (file ./binned_0.4GeV.pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+>]) [4] (./Hypothesis testing.aux)
 Package rerunfilecheck Info: File `"Hypothesis testing".out' has not changed.
-(rerunfilecheck)             Checksum: 0E79078E21413172B526A12DC2DABAFE;848.
+(rerunfilecheck)             Checksum: 0529074E34DC6AE363DA6B706071EAB3;766.
  ) 
 Here is how much of TeX's memory you used:
- 34040 strings out of 476024
- 803572 string characters out of 5794016
+ 34061 strings out of 476024
+ 804092 string characters out of 5794016
  1869382 words of memory out of 5000000
- 53895 multiletter control sequences out of 15000+600000
+ 53913 multiletter control sequences out of 15000+600000
  527008 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  102i,12n,104p,767b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -965,10 +992,10 @@ nts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsy7.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/sy
 mbols/msam10.pfb>
-Output written on "Hypothesis testing.pdf" (4 pages, 3630368 bytes).
+Output written on "Hypothesis testing.pdf" (4 pages, 6863958 bytes).
 PDF statistics:
- 206 PDF objects out of 1000 (max. 8388607)
- 147 compressed objects within 2 object streams
+ 267 PDF objects out of 1000 (max. 8388607)
+ 187 compressed objects within 2 object streams
  18 named destinations out of 1000 (max. 500000)
- 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 
