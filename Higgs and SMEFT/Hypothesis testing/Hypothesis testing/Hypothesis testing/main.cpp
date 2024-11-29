@@ -482,14 +482,14 @@ int main() {
 		writeFile << "# Binned analysis with bin size " << BIN_RATIO << "GeV" << std::endl;
 		double res;
 		for (int c_div = 1; c_div <= domain_resolution; c_div++) {
-			apars.C = totalwidth * M_1_PI * c_div / domain_resolution;
+			apars.C = totalwidth * c_div / (domain_resolution * GSL_IMAG(Pi(apars.M, 0.5 * apars.M - totalwidth, apars.M)));
 			for (int m_div = 0; m_div <= domain_resolution; m_div++) {
 				apars.Msmall = 0.5 * apars.M - totalwidth + 2.0 * totalwidth * m_div / domain_resolution;
 				apars.Gamma = totalwidth - apars.C * GSL_IMAG(Pi(apars.M, apars.Msmall, apars.M));
 				apars.A = 1e-3 * gsl_pow_2(totalwidth) / gsl_pow_2(apars.M);
 				res = bestfit_bin(apars, workspace).NS;
 				if (res > 0)
-					writeFile << apars.C << "," << apars.Msmall << "," << res << std::endl;
+					writeFile << apars.C << "," << apars.Msmall << "," << res << "," << std::endl;
 			}
 			std::cout << 100.0 * c_div / domain_resolution << "% done..." << std::endl;
 		}
@@ -498,14 +498,14 @@ int main() {
 		writeFile << "# Unbinned analysis" << std::endl;
 		double res;
 		for (int c_div = 1; c_div <= domain_resolution; c_div++) {
-			apars.C = totalwidth * M_1_PI * c_div / domain_resolution;
+			apars.C = totalwidth * c_div / (domain_resolution * GSL_IMAG(Pi(apars.M, 0.5 * apars.M - totalwidth, apars.M)));
 			for (int m_div = 0; m_div <= domain_resolution; m_div++) {
 				apars.Msmall = 0.5 * apars.M - totalwidth + 2.0 * totalwidth * m_div / domain_resolution;
 				apars.Gamma = totalwidth - apars.C * GSL_IMAG(Pi(apars.M, apars.Msmall, apars.M));
 				apars.A = 1e-3 * gsl_pow_2(totalwidth) / gsl_pow_2(apars.M);
 				res = bestfit(apars, workspace).NS;
 				if (res > 0)
-					writeFile << apars.C << "," << apars.Msmall << "," << res << std::endl;
+					writeFile << apars.C << "," << apars.Msmall << "," << res << "," << std::endl;
 			}
 			std::cout << 100.0 * c_div / domain_resolution << "% done..." << std::endl;
 		}
