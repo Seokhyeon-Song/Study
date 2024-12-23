@@ -1,0 +1,90 @@
+M$ModelName = "QED Higgs Portal";
+
+FeynmanGauge=False;
+
+M$Information = {
+	Authors      -> {"S.Song"},
+	Version      -> "1.0",
+	Institutions -> {"Seoul National University"},
+	Emails       -> {"hypercube256@snu.ac.kr"},
+	Date         -> "19, Dec, 2024"
+};
+
+IndexRange[Index[Generation]] = Range[3];
+IndexStyle[Generation, f];
+
+M$Parameters = {
+	EL == {
+		ParameterType -> Internal,
+		InteractionOrder -> {QED,1}
+	},
+	Yl == {
+		ParameterType -> Internal,
+		InteractionOrder -> {Yuk,1}
+	},
+	Yf == {
+		ParameterType -> Internal,
+		InteractionOrder -> {Yuk,1}
+	}
+};
+
+M$GaugeGroups = {
+	U1 == {
+		Abelian           -> True,
+		CouplingConstant  -> EL,
+		GaugeBoson        -> A,
+		Charge            -> Q
+	}
+};
+
+M$ClassesDescription = {
+S[1] == {
+	ClassName        -> h,
+	SelfConjugate    -> True,
+	Mass             -> {Mh, 125.11},
+	PropagatorLabel  -> "h",
+	PropagatorType   -> Dashed,
+	PropagatorArrow  -> None,
+    PDG              -> 25
+},
+
+F[2] == {
+	ClassName        -> l,
+	ClassMembers     -> {ele, mu, ta},
+	SelfConjugate    -> False,
+	Indices          -> {Index[Generation]},
+	FlavorIndex      -> Generation,
+	Mass             -> {Mlep, {ME,5.11*^-4}, {MM,0.10566}, {ML,1.777}},
+	Width            -> 0,
+	QuantumNumbers   -> {Q -> 1, LeptonNumber -> 1},
+	PropagatorLabel  -> {"l", "e", "mu", "ta"},
+	PropagatorType   -> Straight,
+	PropagatorArrow  -> Forward,
+    PDG              -> {11, 13, 15}
+},
+
+F[3] == {
+	ClassName        -> f,
+	SelfConjugate    -> False,
+	Mass             -> {Mf, 60},
+	QuantumNumbers   -> {LeptonNumber -> 1},
+	PropagatorLabel  -> "f",
+	PropagatorType   -> Straight,
+	PropagatorArrow  -> Forward,
+    PDG              -> 20
+},
+
+V[1] == {
+	ClassName        -> A,
+	SelfConjugate    -> True,
+	Mass             -> 0,
+	PropagatorLabel  -> "\\gamma",
+	PropagatorType   -> W,
+	PropagatorArrow  -> None,
+    PDG              -> 22
+}
+};
+
+LTotal = LKinetic + LYukawa;
+LKinetic = -1/4 FS[A, imu, inu] FS[A, imu, inu] - Mh^2/2 h^2 + 1/2 del[h, imu] del[h, imu] - Mlep[fi] lbar[s,fi].l[s,fi] + I lbar.Ga[imu].DC[l, imu] - Mf fbar.f + I fbar.Ga[imu].del[f, imu];
+LYukawa = -Yl lbar.l h - Yf fbar.f h;
