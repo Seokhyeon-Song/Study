@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
-# Date: Fri 20 Dec 2024 11:45:40
+# Date: Wed 25 Dec 2024 13:06:43
 
 
 from __future__ import division
@@ -15,11 +15,10 @@ h = Particle(pdg_code = 25,
              spin = 1,
              color = 1,
              mass = Param.Mh,
-             width = Param.ZERO,
+             width = Param.Wh,
              texname = 'h',
              antitexname = 'h',
-             charge = 0,
-             LeptonNumber = 0)
+             charge = 0)
 
 ele = Particle(pdg_code = 11,
                name = 'ele',
@@ -30,8 +29,7 @@ ele = Particle(pdg_code = 11,
                width = Param.ZERO,
                texname = 'ele',
                antitexname = 'ele~',
-               charge = 1,
-               LeptonNumber = 1)
+               charge = 1)
 
 ele__tilde__ = ele.anti()
 
@@ -44,8 +42,7 @@ mu = Particle(pdg_code = 13,
               width = Param.ZERO,
               texname = 'mu',
               antitexname = 'mu~',
-              charge = 1,
-              LeptonNumber = 1)
+              charge = 1)
 
 mu__tilde__ = mu.anti()
 
@@ -58,8 +55,7 @@ ta = Particle(pdg_code = 15,
               width = Param.ZERO,
               texname = 'ta',
               antitexname = 'ta~',
-              charge = 1,
-              LeptonNumber = 1)
+              charge = 1)
 
 ta__tilde__ = ta.anti()
 
@@ -72,8 +68,7 @@ f = Particle(pdg_code = 20,
              width = Param.ZERO,
              texname = 'f',
              antitexname = 'f~',
-             charge = 0,
-             LeptonNumber = 1)
+             charge = 0)
 
 f__tilde__ = f.anti()
 
@@ -86,6 +81,5 @@ A = Particle(pdg_code = 22,
              width = Param.ZERO,
              texname = 'A',
              antitexname = 'A',
-             charge = 0,
-             LeptonNumber = 0)
+             charge = 0)
 

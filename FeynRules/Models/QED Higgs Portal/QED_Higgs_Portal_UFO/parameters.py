@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
-# Date: Fri 20 Dec 2024 11:45:40
+# Date: Wed 25 Dec 2024 13:06:43
 
 
 
@@ -64,22 +64,6 @@ Wh = Parameter(name = 'Wh',
                texname = '\\text{Wh}',
                lhablock = 'DECAY',
                lhacode = [ 25 ])
-
-Wf = Parameter(name = 'Wf',
-               nature = 'external',
-               type = 'real',
-               value = 1,
-               texname = '\\text{Wf}',
-               lhablock = 'DECAY',
-               lhacode = [ 20 ])
-
-WA = Parameter(name = 'WA',
-               nature = 'external',
-               type = 'real',
-               value = 1,
-               texname = '\\text{WA}',
-               lhablock = 'DECAY',
-               lhacode = [ 22 ])
 
 EL = Parameter(name = 'EL',
                nature = 'internal',

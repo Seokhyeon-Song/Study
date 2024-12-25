@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
-# Date: Fri 20 Dec 2024 11:45:40
+# Date: Wed 25 Dec 2024 13:06:42
 
 
 # 
@@ -29,9 +29,6 @@
 # Parameter definitions
 #
 
-   * Parameter Wh has no value. Default value 1 assigned.
-   * Parameter Wf has no value. Default value 1 assigned.
-   * Parameter WA has no value. Default value 1 assigned.
    * Parameter EL has no value. Default value 1 assigned.
    * Parameter Yl has no value. Default value 1 assigned.
    * Parameter Yf has no value. Default value 1 assigned.
@@ -43,7 +40,6 @@
    * Number of flavored vertices: 7
    * Saved vertices in InterfaceRun[ 1 ].
    * Checked QNumber conservation.
-      - Quantum number LeptonNumber conserved in all vertices.
       - Quantum number Q conserved in all vertices.
    * particles.py written.
    * parameters.py written.
