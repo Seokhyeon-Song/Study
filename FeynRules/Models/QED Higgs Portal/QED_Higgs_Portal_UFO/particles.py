@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
-# Date: Wed 25 Dec 2024 13:06:43
+# Date: Thu 26 Dec 2024 16:01:58
 
 
 from __future__ import division
@@ -19,6 +19,19 @@ h = Particle(pdg_code = 25,
              texname = 'h',
              antitexname = 'h',
              charge = 0)
+
+chi = Particle(pdg_code = 38,
+               name = 'chi',
+               antiname = 'chi~',
+               spin = 1,
+               color = 1,
+               mass = Param.Mchi,
+               width = Param.ZERO,
+               texname = 'chi',
+               antitexname = 'chi~',
+               charge = 0)
+
+chi__tilde__ = chi.anti()
 
 ele = Particle(pdg_code = 11,
                name = 'ele',
@@ -58,19 +71,6 @@ ta = Particle(pdg_code = 15,
               charge = 1)
 
 ta__tilde__ = ta.anti()
-
-f = Particle(pdg_code = 20,
-             name = 'f',
-             antiname = 'f~',
-             spin = 2,
-             color = 1,
-             mass = Param.Mf,
-             width = Param.ZERO,
-             texname = 'f',
-             antitexname = 'f~',
-             charge = 0)
-
-f__tilde__ = f.anti()
 
 A = Particle(pdg_code = 22,
              name = 'A',

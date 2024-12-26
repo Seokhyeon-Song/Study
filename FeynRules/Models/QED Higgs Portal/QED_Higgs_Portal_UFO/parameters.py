@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
-# Date: Wed 25 Dec 2024 13:06:43
+# Date: Thu 26 Dec 2024 16:01:58
 
 
 
@@ -24,6 +24,14 @@ Mh = Parameter(name = 'Mh',
                texname = '\\text{Mh}',
                lhablock = 'MASS',
                lhacode = [ 25 ])
+
+Mchi = Parameter(name = 'Mchi',
+                 nature = 'external',
+                 type = 'real',
+                 value = 60,
+                 texname = '\\text{Mchi}',
+                 lhablock = 'MASS',
+                 lhacode = [ 38 ])
 
 ME = Parameter(name = 'ME',
                nature = 'external',
@@ -49,14 +57,6 @@ ML = Parameter(name = 'ML',
                lhablock = 'MASS',
                lhacode = [ 15 ])
 
-Mf = Parameter(name = 'Mf',
-               nature = 'external',
-               type = 'real',
-               value = 60,
-               texname = '\\text{Mf}',
-               lhablock = 'MASS',
-               lhacode = [ 20 ])
-
 Wh = Parameter(name = 'Wh',
                nature = 'external',
                type = 'real',
@@ -71,15 +71,15 @@ EL = Parameter(name = 'EL',
                value = '1',
                texname = '\\text{EL}')
 
-Yl = Parameter(name = 'Yl',
-               nature = 'internal',
-               type = 'real',
-               value = '1',
-               texname = '\\text{Yl}')
+lambdah = Parameter(name = 'lambdah',
+                    nature = 'internal',
+                    type = 'real',
+                    value = '1',
+                    texname = '\\text{lambdah}')
 
-Yf = Parameter(name = 'Yf',
-               nature = 'internal',
-               type = 'real',
-               value = '1',
-               texname = '\\text{Yf}')
+lambdachi = Parameter(name = 'lambdachi',
+                      nature = 'internal',
+                      type = 'real',
+                      value = '1',
+                      texname = '\\text{lambdachi}')
 

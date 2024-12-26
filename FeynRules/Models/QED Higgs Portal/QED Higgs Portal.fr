@@ -18,13 +18,13 @@ M$Parameters = {
 		ParameterType -> Internal,
 		InteractionOrder -> {QED,1}
 	},
-	Yl == {
+	lambdah == {
 		ParameterType -> Internal,
-		InteractionOrder -> {Yuk,1}
+		InteractionOrder -> {QED,1}
 	},
-	Yf == {
+	lambdachi == {
 		ParameterType -> Internal,
-		InteractionOrder -> {Yuk,1}
+		InteractionOrder -> {New,1}
 	}
 };
 
@@ -44,9 +44,21 @@ S[1] == {
 	Mass             -> {Mh, 125.11},
 	Width            -> {Wh, 1},
 	PropagatorLabel  -> "h",
-	PropagatorType   -> Dashed,
+	PropagatorType   -> Straight,
 	PropagatorArrow  -> None,
     PDG              -> 25
+},
+
+S[2] == {
+	ClassName        -> chi,
+	SelfConjugate    -> False,
+	Mass             -> {Mchi, 60},
+	Width            -> {Wchi, 0},
+	QuantumNumbers   -> {Q -> 0},
+	PropagatorLabel  -> "chi",
+	PropagatorType   -> Dashed,
+	PropagatorArrow  -> None,
+    PDG              -> 38
 },
 
 F[2] == {
@@ -64,18 +76,6 @@ F[2] == {
     PDG              -> {11, 13, 15}
 },
 
-F[3] == {
-	ClassName        -> f,
-	SelfConjugate    -> False,
-	Mass             -> {Mf, 60},
-	Width            -> {Wf, 0},
-	QuantumNumbers   -> {Q -> 0},
-	PropagatorLabel  -> "f",
-	PropagatorType   -> Straight,
-	PropagatorArrow  -> Forward,
-    PDG              -> 20
-},
-
 V[1] == {
 	ClassName        -> A,
 	SelfConjugate    -> True,
@@ -88,6 +88,7 @@ V[1] == {
 }
 };
 
-LTotal = LKinetic + LYukawa;
-LKinetic = -1/4 FS[A, imu, inu] FS[A, imu, inu] - Mh^2/2 h^2 + 1/2 del[h, imu] del[h, imu] - Mlep[fi] lbar[s,fi].l[s,fi] + I lbar.Ga[imu].DC[l, imu] - Mf fbar.f + I fbar.Ga[imu].del[f, imu];
-LYukawa = -Yl lbar.l h - Yf fbar.f h;
+LTotal = LKinetic + LScalar + LYukawa;
+LKinetic = -1/4 FS[A, imu, inu] FS[A, imu, inu] - Mh^2/2 h^2 + 1/2 del[h, imu] del[h, imu] - Mchi^2 chibar chi + del[chi, imu] del[chibar, imu] - Mlep[fi] lbar[s,fi].l[s,fi] + I lbar.Ga[imu].DC[l, imu];
+LScalar = -lambdachi h chibar chi;
+LYukawa = -lambdah Mlep[fi] h lbar[s,fi].l[s,fi];

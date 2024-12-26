@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
-# Date: Wed 25 Dec 2024 13:06:42
+# Date: Thu 26 Dec 2024 16:01:57
 
 
 # 
@@ -30,8 +30,8 @@
 #
 
    * Parameter EL has no value. Default value 1 assigned.
-   * Parameter Yl has no value. Default value 1 assigned.
-   * Parameter Yf has no value. Default value 1 assigned.
+   * Parameter lambdah has no value. Default value 1 assigned.
+   * Parameter lambdachi has no value. Default value 1 assigned.
 
 
 # Vertices
@@ -53,13 +53,13 @@
 # Lorentz structure definitions
 #
 
-   * 2 lorentz structures written.
+   * 3 lorentz structures written.
    * lorentz.py written.
 #
 # Coupling definitions
 #
 
-   * 3 couplings written.
+   * 5 couplings written.
    * couplings.py written.
 #
 # Coupling order definitions
