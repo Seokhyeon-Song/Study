@@ -1,0 +1,85 @@
+# This file was automatically created by FeynRules 2.3.49
+# Mathematica version: 14.0.0 for Microsoft Windows (64-bit) (December 13, 2023)
+# Date: Sat 28 Dec 2024 18:41:04
+
+
+# 
+# This is the logfile for the model QED Higgs Portal
+
+# Authors: S.Song
+# Model version: 1.0.1
+# Checking the Quantum numbers
+   * Electric charge defined.
+# Checking the Lagrangians
+   * All Lagrangians are ok.
+#
+# Particle definitions
+#
+
+   * No particles removed. All particles correspond to GenInt setup.
+
+
+
+# Compulsory PDG codes:
+   * Class SM leptons complete.
+   * Class SM neutrinos incomplete. 12, 14, 16 missing.
+   * Class SM quarks incomplete. 1, 2, 3, 4, 5, 6 missing.
+   * Class SM gauge bosons incomplete. 21, 23, 24 missing.
+#
+# Parameter definitions
+#
+
+   * All parameters are ok.
+
+
+# Vertices
+   * Calling FeynmanRules for 1 Lagrangians.
+   * Number of classes vertices: 20
+   * Number of flavored vertices: 18
+   * Saved vertices in InterfaceRun[ 1 ].
+   * Checked QNumber conservation.
+      - Quantum number Q conserved in all vertices.
+   * particles.py written.
+   * parameters.py written.
+#
+# Vertex definitions
+#
+
+   * 7 vertices written.
+   * vertices.py written.
+#
+# Lorentz structure definitions
+#
+
+   * 20 lorentz structures written.
+   * lorentz.py written.
+#
+# Coupling definitions
+#
+
+   * 5 couplings written.
+   * couplings.py written.
+#
+# Coupling order definitions
+#
+
+   * 0 couplings orders written.
+   * coupling_orders.py written.
+#
+# Decay definitions
+#
+
+   * 1 decay written.
+   * decay.py not written
+#
+# CTCoupling definitions
+#
+
+   * 110 CTcouplings written.
+   * CT_couplings.py written.
+#
+# CTVertex definitions
+#
+
+   * 31 CTvertices written.
+   * CT_vertices.py written.
