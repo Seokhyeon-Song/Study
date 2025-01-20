@@ -1,0 +1,91 @@
+M$ModelName = "QED Broad Resonance";
+
+FeynmanGauge=False;
+
+M$Information = {
+	Authors      -> {"S.Song"},
+	Version      -> "1.0",
+	Institutions -> {"Seoul National University"},
+	Emails       -> {"hypercube256@snu.ac.kr"},
+	Date         -> "20, Jan, 2025"
+};
+
+IndexRange[Index[Generation]] = Range[3];
+IndexStyle[Generation, f];
+
+M$Parameters = {
+	EE == {
+		ParameterType -> Internal,
+		InteractionOrder -> {QED,1}
+	},
+	yl == {
+		ParameterType -> Internal,
+		InteractionOrder -> {QED,1}
+	},
+	ys == {
+		ParameterType -> Internal,
+		InteractionOrder -> {New,1}
+	}
+};
+
+M$GaugeGroups = {
+	U1 == {
+		Abelian           -> True,
+		CouplingConstant  -> EE,
+		GaugeBoson        -> A,
+		Charge            -> Q
+	}
+};
+
+M$ClassesDescription = {
+S[1] == {
+	ClassName        -> Phi,
+	SelfConjugate    -> True,
+	Mass             -> {MPhi, 400},
+	Width            -> {WPhi, 10},
+	PropagatorLabel  -> "Phi",
+	PropagatorType   -> ScalarDash,
+	PropagatorArrow  -> None
+},
+
+S[2] == {
+	ClassName        -> chi,
+	SelfConjugate    -> False,
+	Mass             -> {Mchi, 195},
+	Width            -> {Wchi, 0},
+	PropagatorLabel  -> "chi",
+	PropagatorType   -> ScalarDash,
+	PropagatorArrow  -> Forward
+},
+
+F[2] == {
+	ClassName        -> l,
+	ClassMembers     -> {ele, mu, ta},
+	SelfConjugate    -> False,
+	Indices          -> {Index[Generation]},
+	FlavorIndex      -> Generation,
+	Mass             -> {Mlep, {ME,5.11*^-4}, {MM,0.10566}, {ML,1.777}},
+	Width            -> {Wlep, {WE,0}, {WM,0}, {WL,0}},
+	QuantumNumbers   -> {Q -> 1},
+	PropagatorLabel  -> {"l", "e", "mu", "ta"},
+	PropagatorType   -> Straight,
+	PropagatorArrow  -> Forward,
+    PDG              -> {11, 13, 15}
+},
+
+V[1] == {
+	ClassName        -> A,
+	SelfConjugate    -> True,
+	Mass             -> 0,
+	Width            -> 0,
+	PropagatorLabel  -> "\\gamma",
+	PropagatorType   -> W,
+	PropagatorArrow  -> None,
+    PDG              -> 22
+}
+};
+
+LTotal = LKinetic + LScalar + LYukawa;
+LKinetic = -1/4 FS[A, imu, inu] FS[A, imu, inu] - MPhi^2/2 Phi^2 + 1/2 del[Phi, imu] del[Phi, imu] - Mchi^2 chibar chi + del[chi, imu] del[chibar, imu] - Mlep[fi] lbar[s,fi].l[s,fi] + I lbar.Ga[imu].DC[l, imu];
+LScalar = -ys Phi chibar chi;
+LYukawa = -yl Phi lbar[s,fi].l[s,fi];
