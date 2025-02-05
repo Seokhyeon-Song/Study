@@ -4,24 +4,31 @@
 #include <fstream>
 #include <algorithm>
 #include <array>
+#include <chrono>
 #include <complex>
 #include <cstdlib>
+#include <mutex>
 #include <string>
+#include <thread>
+#include <vector>
 
 constexpr auto POINTS = 200; // Starts from 0, ends at POINTS
 constexpr auto SEARCH_POINTS = 10; // -SEARCH_POINTS to SEARCH_POINTS, for each of the two parameters
 constexpr auto SIGMA_PRECISION = 4;
-constexpr auto CONVOLUTION_POINTS = 100;
+constexpr auto CONVOLUTION_POINTS = 40;
 constexpr auto ITERS = 5;
 constexpr auto PLOT_POINTS = 100;
 
 using namespace std::complex_literals;
 using comp = std::complex<double>;
 
-std::array<double, POINTS + 1> pValues, resonanceData, narrowWidthData;
+std::array<double, POINTS + 1> pValues;
 std::array<double, CONVOLUTION_POINTS + 1> convolutionValues;
+std::array<double, PLOT_POINTS * PLOT_POINTS> storage;
 
 double massOS, widthOS, stDev, gaussianNorm;
+std::mutex mut;
+int workCount = 0;
 
 double LinearCoeff(const std::array<double, POINTS + 1>& X, const std::array<double, POINTS + 1>& Y) {
 	double num = 0, den = 0;
@@ -37,7 +44,7 @@ inline bool FloatEqual(double a, double b) {
 }
 
 inline double NWA(double p, double a, double b) {
-	return 1 / (pow(p * p - a * a, 2) - b * b);
+	return 1 / (pow(p * p - a * a, 2) + b * b);
 }
 
 comp F0(double m, double p) {
@@ -69,7 +76,7 @@ comp PropagatorScalar(double p, double M, double m, double c, double gam) {
 double ResonanceConvolution(double p, double M, double m, double c, double gam) {
 	double res = 0.0;
 	for (int i = -CONVOLUTION_POINTS; i <= CONVOLUTION_POINTS; i++) {
-		res += convolutionValues[abs(i)] * pow(abs(PropagatorScalar(p + i * stDev * SIGMA_PRECISION / CONVOLUTION_POINTS, M, m, c, gam)), 2);
+		res += convolutionValues[abs(i)] * norm(PropagatorScalar(p + i * stDev * SIGMA_PRECISION / CONVOLUTION_POINTS, M, m, c, gam));
 	}
 	return res * gaussianNorm;
 }
@@ -82,26 +89,27 @@ double NWAConvolution(double p, double a, double b) {
 	return res * gaussianNorm;
 }
 
-double diffSqSum(const std::array<double, POINTS + 1>& dat, double a, double b) {
+double DiffSqSum(const std::array<double, POINTS + 1>& resdat, std::array<double, POINTS + 1>& nardat, double a, double b) {
 	for (int i = 0; i <= POINTS; i++) {
-		narrowWidthData[i] = NWAConvolution(pValues[i], a, b);
+		nardat[i] = NWAConvolution(pValues[i], a, b);
 	}
 
-	double cCurrent = LinearCoeff(narrowWidthData, resonanceData);
+	double cCurrent = LinearCoeff(nardat, resdat);
 	double res = 0.0;
 	for (int i = 0; i <= POINTS; i++) {
-		res += pow(resonanceData[i] - cCurrent * narrowWidthData[i], 2);
+		res += pow(resdat[i] - cCurrent * nardat[i], 2);
 	}
 	return res;
 }
 
-double diffSectionRatio(double massChi, double coup) {
+double DiffSectionRatio(double massChi, double coup) {
+	std::array<double, POINTS + 1> resonanceData, narrowWidthData;
 	for (int i = 0; i <= POINTS; i++) {
 		resonanceData[i] = ResonanceConvolution(pValues[i], massOS, massChi, coup, widthOS);
 	}
 
-	double aCentre = massOS, bCentre = massOS * widthOS;
-	double aStep = 2 * widthOS / SEARCH_POINTS, bStep = massOS * widthOS * SEARCH_POINTS / ((SEARCH_POINTS + 1) * SEARCH_POINTS);
+	double aCentre = massOS, bCentre = 3 * massOS * widthOS;
+	double aStep = 2 * widthOS / SEARCH_POINTS, bStep = 3 * massOS * widthOS * SEARCH_POINTS / ((SEARCH_POINTS + 1) * SEARCH_POINTS);
 	double aCurrent, bCurrent;
 	int minElem;
 	std::array<double, (2 * SEARCH_POINTS + 1)* (2 * SEARCH_POINTS + 1)> cost;
@@ -111,7 +119,7 @@ double diffSectionRatio(double massChi, double coup) {
 			aCurrent = aCentre + aStep * i;
 			for (int j = -SEARCH_POINTS; j <= SEARCH_POINTS; j++) {
 				bCurrent = bCentre + bStep * j;
-				cost[(i + SEARCH_POINTS) * (2 * SEARCH_POINTS + 1) + j + SEARCH_POINTS] = diffSqSum(resonanceData, aCurrent, bCurrent);
+				cost[(i + SEARCH_POINTS) * (2 * SEARCH_POINTS + 1) + j + SEARCH_POINTS] = DiffSqSum(resonanceData, narrowWidthData, aCurrent, bCurrent);
 			}
 		}
 		minElem = std::min_element(cost.begin(), cost.end()) - cost.begin();
@@ -134,8 +142,32 @@ double diffSectionRatio(double massChi, double coup) {
 	return diffTotal / resonanceTotal;
 }
 
+void CalcMonitor() {
+	while (workCount < PLOT_POINTS * PLOT_POINTS) {
+		std::cout << 100.0 * workCount / (PLOT_POINTS * PLOT_POINTS) << "% Done" << std::endl;
+		std::this_thread::sleep_for(std::chrono::minutes(1));
+	}
+}
+
+void Worker(int i) {
+	double massChi = massOS / 2 + 2 * widthOS * (i - PLOT_POINTS / 2) / PLOT_POINTS;
+	for (int j = 1; j <= PLOT_POINTS; j++) {
+		double coup = massOS * massOS * j / (4 * PLOT_POINTS * M_PI);
+		storage[i * PLOT_POINTS + j - 1] = DiffSectionRatio(massChi, coup);
+		mut.lock();
+		workCount++;
+		mut.unlock();
+	}
+}
+
 int main(void) {
-	massOS = 400, widthOS = 40, stDev = 20;
+	std::cout << "Enter Mass (GeV)" << std::endl;
+	std::cin >> massOS;
+	std::cout << "Enter Width (GeV)" << std::endl;
+	std::cin >> widthOS;
+	std::cout << "Enter Invariant Mass Resolution (GeV)" << std::endl;
+	std::cin >> stDev;
+
 	gaussianNorm = SIGMA_PRECISION / (CONVOLUTION_POINTS * sqrt(2 * M_PI));
 	for (int i = 0; i <= CONVOLUTION_POINTS; i++) {
 		convolutionValues[i] = exp(-pow((double)i * SIGMA_PRECISION / CONVOLUTION_POINTS, 2) / 2);
@@ -144,21 +176,26 @@ int main(void) {
 		pValues[i] = massOS + 8 * widthOS * ((double)i / POINTS - 0.5);
 	}
 	
-	std::string filename = "fitresult.csv";
+	std::thread monitor(CalcMonitor);
+	std::vector<std::thread> workers;
+	for (int i = 0; i < PLOT_POINTS; i++) {
+		workers.push_back(std::thread(Worker, i));
+	}
+	for (int i = 0; i < PLOT_POINTS; i++) {
+		workers[i].join();
+	}
+	monitor.join();
+	std::cout << "Done calculating. Now writing csv..." << std::endl;
+
+	std::string filename = std::to_string((int)massOS) + "GeV_" + std::to_string((int)widthOS) + "GeV_" + std::to_string((int)stDev) + "GeV.csv";
 	std::ofstream writeFile;
 	writeFile.open(filename);
 	writeFile << "m, c, val," << std::endl;
-	int totalPoints = PLOT_POINTS * PLOT_POINTS;
-	int percent = 0;
 	for (int i = 0; i < PLOT_POINTS; i++) {
-		double massChi = massOS / 2 + widthOS * (i - PLOT_POINTS / 2) / PLOT_POINTS;
+		double massChi = massOS / 2 + 2* widthOS * (i - PLOT_POINTS / 2) / PLOT_POINTS;
 		for (int j = 1; j <= PLOT_POINTS; j++) {
 			double coup = massOS * massOS * j / (4 * PLOT_POINTS * M_PI);
-			writeFile << massChi << ", " << coup << ", " << diffSectionRatio(massChi, coup) << "," << std::endl;
-			if (percent < (PLOT_POINTS * i + j) * 100 / totalPoints) {
-				percent = (PLOT_POINTS * i + j) * 100 / totalPoints;
-				std::cout << percent << "% Done" << std::endl;
-			}
+			writeFile << massChi << ", " << coup << ", " << storage[i * PLOT_POINTS + j - 1] << "," << std::endl;
 		}
 	}
 	writeFile.close();
