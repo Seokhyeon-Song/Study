@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage{tikz,tikz-cd,tikz-3dplot,pgfplots}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm,bbm}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{tensor}
+\usepackage{indentfirst}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing}
+\allowdisplaybreaks
+\pgfplotsset{width=10cm, compat=1.16}
+\renewcommand\bra[1]{{\langle{#1}|}}
+\renewcommand\ket[1]{{|{#1}\rangle}}
+\renewcommand\bfdefault{b}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth} 
+
+\begin{document}
+	\title{Threshold decay mode detection}
+	\author{Seokhyeon Song}
+	\maketitle
+	
+	\section{}
+	Dyson resummation gives
+	\[\Delta(p^{2})=\frac{i}{p^{2}-M_{0}^{2}+\Pi(p^{2})},\]
+	where the self-energy $\Pi(p^{2})$ contains the sum of 1PI loop integrals.
+	Following the ``real on-shell'' renormalisation convention, the propagator is
+	\[\Delta(p^{2})=\frac{i}{p^{2}-M^{2}+\Pi(p^{2})}=\frac{iZ}{p^{2}-M^{2}+iZ\,\mathrm{Im}\,\Pi(p^{2})+O((p^{2}-M^{2})^{2})},\]
+	where the real on-shell mass $M$ and the field-strength renormalisation $Z$ satisfy
+	\begin{align*}
+		M^{2}&=M_{0}^{2}-\mathrm{Re}\,\Pi(M^{2}),\\
+		Z^{-1}&=1+\mathrm{Re}\bigg[\frac{d\Pi(p^{2})}{d(p^{2})}\bigg]_{p^{2}=M^{2}}.
+	\end{align*}
+	(Particles near threshold ref. here)
+	The imaginary part of the denominator of the propagator is related to the particle's total decay width $\Gamma$, where
+	\[M\Gamma=Z\,\mathrm{Im}\,\Pi(M^{2}).\]
+	Because of unitarity, this definition of decay width coincides with the definition given by the scattering amplitude with one initial state.
+	
+	One of the alternative definition...
+	Pole mass = $M_{p}-\frac{i}{2}\Gamma$...
+	But more than one pole or zero pole (depend on the choice convention), so we don't use this definition.
+	Maybe some pole trajectory plot here?
+\end{document}
