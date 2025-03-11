@@ -134,19 +134,28 @@
 		\label{fig:pole_structure}
 	\end{figure}
 	
-	\section{}
-	In the presence of in-resonance decay channel, a shape of resonance peak does not resemble the Breit-Wigner distribution, and a nontrivial momentum dependence of a self-energy becomes important.
+	\section{Resonance Shape}
+	In the presence of in-resonance decay channel, a shape of resonance peak does not resemble the Breit-Wigner distribution, and a nontrivial momentum dependence of a self-energy becomes important.	
+	We will consider one-loop corrections to the scalar particle propagator in terms of renormalisable couplings.
+	The momentum dependent contributions in self-energy come from loop diagrams with 2 three-particle vertices.
+	For example, consider the following real scalar theory:
+	\[\mathcal{L}=\frac{1}{2}\partial_{\mu}X\partial^{\mu}X-\frac{1}{2}M^{2}X^{2}+\mathcal{L}_{\mathrm{int}}.\]
+	If a particle $\phi$ which has a mass $m$ interacts with $X$, a process $X\to\phi\bar{\phi}$ has a threshold invariant mass $M_{\mathrm{th}}=2m$.
+	Then the self-energy $\Pi(p^{2})$ of $X$ has a branch singularity at $p^{2}=4m^{2}$, but the behaviour of such singularity depends on the spin of $\phi$.
 	
-	In one-loop correction of the scalar propagator, such momentum dependence is most pronounced when the loop particles are scalars.
-	In this case, the propagator is non-differentiable at the threshold, resulting in a characteristic kink shape.
-	For higher-spin loop particles, the difference from the Breit-Wigner distribution is small even when the coupling constant is large.
-	Looking only at the imaginary component, higher-spin decay products suffers large phase space suppression because the mother particle mass is very close to the threshold.
-	Thus, particles with spin do not contribute significantly to the decay width, suggesting a minor effect on the overall resonance shape.
+	If $\phi$ is a scalar particle, a complex scalar with $\mathcal{L}_{\mathrm{int}}=gX\phi^{\ast}\phi$ for this example, the most singular part of $\Pi(p^{2})$ near threshold is
+	\[\Pi(p^{2})=(\mathrm{regular})-\mathrm{sgn}(4m^{2}-p^{2})\frac{g^{2}}{32\pi m}\sqrt{4m^{2}-p^{2}}+O((4m^{2}-p^{2})^{3/2}).\]
+	As a function of real variable $p^{2}$, this means that $\Pi(p^{2})$ is continuous but non-differentiable at $p^{2}=4m^{2}$.
+	This leads to a typical cusp shape in resonance.
+	On the other hand, if $\phi$ is a spinor with $\mathcal{L}_{\mathrm{int}}=gX\bar{\phi}\phi$, then the most singular part of $\Pi(p^{2})$ is
+	\[\Pi(p^{2})=(\mathrm{regular})+\mathrm{sgn}(4m^{2}-p^{2})\frac{y^{2}}{16\pi m}(4m^{2}-p^{2})^{3/2}+O((4m^{2}-p^{2})^{5/2}).\]
+	This means that $\Pi(p^{2})$ is differentiable at $p^{2}=4m^{2}$.
+	This softer singularity suggests that there is no harsh momentum dependence presenting in the resonance shape.
+	If we only look at the imaginary part of the self-energy in $p^{2}>4m^{2}$ region, these spin-dependent results can be reinterpreted as being due to the phase space suppression of decay products.
 	
-	이 윗부분을 그냥 제대로 Lagrangian 도입해서 다시 쓰는 게 좋을 듯. 결과도 그래프로 보여주고.
+	(Add some plots?)
 	
-	(I have to write something here, but I can't think of anything right now)
-	
+	\section{Fitting}
 	If a background scattering amplitude is nearly constant within the range of resonance peak, the maximum likelihood fitting can be approximated by least squares fitting.
 	Then the $\chi^{2}$ test statistic is proportional to the total squared residue times total luminosity.
 	
