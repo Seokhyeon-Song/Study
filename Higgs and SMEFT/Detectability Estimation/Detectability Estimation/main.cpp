@@ -134,12 +134,11 @@ double DiffSectionRatio(double massChi, double coup) {
 	}
 	double cCurrent = LinearCoeff(narrowWidthData, resonanceData);
 
-	double resonanceTotal = 0.0, diffTotal = 0.0;
+	double resonanceTotal = 0.0;
 	for (int i = 0; i <= POINTS; i++) {
-		resonanceTotal += resonanceData[i];
-		diffTotal += abs(resonanceData[i] - cCurrent * narrowWidthData[i]);
+		resonanceTotal += pow(resonanceData[i], 2);
 	}
-	return diffTotal / resonanceTotal;
+	return *std::min(cost.begin(), cost.end()) / resonanceTotal;
 }
 
 void CalcMonitor() {
