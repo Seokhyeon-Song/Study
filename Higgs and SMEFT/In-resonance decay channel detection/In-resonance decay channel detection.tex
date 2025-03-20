@@ -50,12 +50,12 @@
 	where the self-energy $\Pi(p^{2})$ contains the sum of 1PI loop integrals.
 	Following the ``real on-shell'' renormalisation convention, the propagator is
 	\[\Delta(p^{2})=\frac{i}{p^{2}-M^{2}+\Pi(p^{2})-\mathrm{Re}\,\Pi(M^{2})}=\frac{iZ}{p^{2}-M^{2}+iZ\,\mathrm{Im}\,\Pi(p^{2})+O((p^{2}-M^{2})^{2})},\]
-	where the real on-shell mass $M$ and the field-strength renormalisation $Z$ satisfy
+	where the real on-shell mass $M$ and the field-strength renormalisation $Z$ satisfy (Particles near threshold ref. here)
 	\begin{align*}
 		M^{2}&=M_{0}^{2}-\mathrm{Re}\,\Pi(M^{2}),\\
 		Z^{-1}&=1+\mathrm{Re}\bigg[\frac{d\Pi(p^{2})}{d(p^{2})}\bigg]_{p^{2}=M^{2}}.
 	\end{align*}
-	(Particles near threshold ref. here)
+	To clearly define the model parameters, we set the counterterms so that $M=M_{0}$ and $Z=1$.
 	The imaginary part of the denominator of the propagator is related to the particle's total decay width $\Gamma$, where
 	\[M\Gamma=Z\,\mathrm{Im}\,\Pi(M^{2}).\]
 	Because of unitarity, this definition of decay width coincides with the definition given by the scattering amplitude with one initial state. (More rigorous statement needed. Actually only well-defined in NWA?)
@@ -175,57 +175,148 @@
 	\end{figure}
 	
 	\section{Toy Statistical Analysis}
-	One of standard statistical tests for discovering new physics model is the likelihood-ratio test.
-	Suppose that a collection $S$ of physical observables follows the probability distribution $\rho(S;\theta)$ under a set of model parameters $\theta$.
-	For example, in collider experiments, $S$ may contain the type and momentum of final-state particles.
-	If we perform $N$ successive experiments, the log-likelihood of a particular collection of parameter values $\theta$ is defined as
-	\[L(\theta)=\sum_{i=1}^{N}\ln\rho(S_{i};\theta).\]
-	In most cases, the null hypothesis constrains the parameter space to a certain subset $\Theta_{0}$.
-	On the other hand, the alternative hypothesis includes the entire parameter space $\Theta$.
-	For each hypothesis, the best fit is given by maximising the log-likelihood function.
-	In a likelihood-ratio test, the test statistic is a difference of maximised log-likelihood function in both parameter space, that is,
-	\[t:=2\left[\max_{\theta\in\Theta}L(\theta)-\max_{\theta\in\Theta_{0}}L(\theta)\right].\]
-	The test statistic $t$ follows some probability distribution, for example, Wilks' theorem shows that $t$ follows a $\chi^{2}$ distribution under certain assumptions.
-	
 	In this paper, we will discuss toy statistical analysis under some simplifying assumptions.
 	These assumptions may not hold in real experiment, but statistical analysis of a real experiment requires a lot of information about experimental settings and a detail of new physics model.
 	In any case, this simple analysis can be thought of as an approximate analysis of the observability of in-resonance effects.
 	We will focus on the dimuon production in accelerators, and ignore other final-state particles.
 	We also ignore the angular dependence and only focus on invariant mass $\mu$ of dimuon.
+	Integrating out all other degrees of freedom, we left with the differential cross-section $\rho(\mu)=d\sigma/d\mu$.
 	
-	We divide the total probability distribution $\rho(\mu)$ of dimuon invariant mass into three parts;
-	$\rho_{0}(\mu)$ is the SM ``background", $\rho_{1}(\mu)$ is the Breit-Wigner best fit of the resonance signal, and $\rho_{2}(\mu)$ is the rest.
-	Note that both $\rho_{0}$ and $\rho_{1}$ should be positive but $\rho_{2}$ can be negative.
-	These three distributions correspond to three different hypotheses, suggesting different physical conclusions:
+	Suppose that a model predicts a differential cross-section $\rho_{\text{pred}}(\mu;\theta)$, where $\theta$ is a set of model parameters.
+	Divide a mass range $M-\Delta M\leq\mu\leq M+\Delta M$ into $N$ bins of equal length, $B_{k}=[\mu_{k-1},\mu_{k}]$ for $k=1,\dots,N$.
+	For large enough integrated luminosity $L$, the expected count of samples lying in the $k$th bin is
+	\[\bar{n}_{k}(\theta)=L\int_{\mu_{k-1}}^{\mu_{k}}\rho_{\text{pred}}(\mu;\theta)\,d\mu\simeq\frac{2L\Delta M}{N}\rho_{\text{pred}}(\mu_{k};\theta).\]
+	The distribution of sample count is Poisson distribution, and it can be approximated by normal distribution if each $\bar{n}_{k}(\theta)$ is sufficiently big.
+	In this kind of settings, a good test statistic would be a $\chi^{2}(N)$ statistic, defined by
+	\[t(\theta)=\sum_{k=1}^{N}\frac{[n_{k}-\bar{n}_{k}(\theta)]^{2}}{\bar{n}_{k}(\theta)},\]
+	where $n_{k}$ is the sample count of each bin measured in the real experiment.
+	We may further argue that for $N\gg1$, the value $x:=(t-N)/\sqrt{2N}$ follows the normal distribution.
+	Now let $\rho(\mu)$ be the true differential cross-section.
+	Then each $n_{k}$ follows the Poisson distribution with the mean $\langle n_{k}\rangle=2L\Delta M\rho(\mu_{k})/N$.
+	Then the expected value of $t$ is
 	\begin{align*}
-		H_{0}&:\rho=\rho_{0};\text{There is only SM background (no scalar resonance discovered)},\\
-		H_{1}&:\rho=\rho_{0}+\rho_{1};\text{There is scalar resonance, but it is Breit-Wigner (no in-resonance channel detected)},\\
-		H_{2}&:\rho=\rho_{0}+\rho_{1}+\rho_{2};\text{There is scalar resonance with in-resonance channel.}
+		\langle t\rangle(\theta)&=\sum_{k=1}^{N}\frac{1}{\bar{n}_{k}(\theta)}\Big[\langle n_{k}^{2}\rangle-2\bar{n}_{k}(\theta)\langle n_{k}\rangle+\bar{n}_{k}(\theta)^{2}\Big]\\
+		&=\sum_{k=1}^{N}\frac{1}{\bar{n}_{k}(\theta)}\Big[\langle n_{k}\rangle^{2}+\langle n_{k}\rangle-2\bar{n}_{k}(\theta)\langle n_{k}\rangle+\bar{n}_{k}(\theta)^{2}\Big]\\
+		&=N+\sum_{k=1}^{N}\bigg[\frac{[\langle n_{k}\rangle-\bar{n}_{k}(\theta)]^{2}}{\bar{n}_{k}(\theta)}+\frac{\langle n_{k}\rangle-\bar{n}_{k}(\theta)}{\bar{n}_{k}(\theta)}\bigg].
 	\end{align*}
-	Furthermore, we also assume that the background is very large relative to the signal and does not change significantly within the mass range $M-\Delta M\leq\mu\leq M+\Delta M$ that we are interested in:
-	\[\rho_{0}(\mu)\simeq\langle\rho\rangle\gg\rho_{1}(\mu)>\rho_{2}(\mu).\]
-	Each dimuon production signal with invariant mass $\mu_{i}$ contributes to the log-likelihood function by $\ln\rho(\mu_{i})$, so
-	\[L=\sum_{i=1}^{N}\ln\rho(\mu_{i}).\]
-	When N is large enough, the sum can be interpreted as a Monte Carlo integral.
-	Here the distribution is almost uniform within the mass range, so
-	\[L\simeq\frac{N}{2\Delta M}\int_{M-\Delta M}^{M+\Delta M}\ln\rho(\mu)\,d\mu.\]
-	For two similar distributions $\rho(\mu)$ and $\rho'(\mu)=\rho(\mu)+\Delta\rho(\mu)$, expanding the logarithm gives
-	\[\ln\rho'(\mu)\simeq\ln\rho(\mu)+\frac{\rho'(\mu)-\rho(\mu)}{\rho(\mu)}-\frac{[\rho'(\mu)-\rho(\mu)]^{2}}{2\rho(\mu)^{2}}.\]
-	Hence,
-	\[L'-L\simeq\frac{N}{2\Delta M}\int_{M-\Delta M}^{M+\Delta M}\frac{\rho'(\mu)-\rho(\mu)}{\rho(\mu)}\,d\mu-\frac{N}{4\Delta M}\int_{M-\Delta M}^{M+\Delta M}\frac{[\rho'(\mu)-\rho(\mu)]^{2}}{\rho(\mu)^{2}}\,d\mu.\]
-	The first integral is usually zero since $\rho$ and $\rho'$ are both best-fit distributions (thus matching mean values), so
-	\[L'-L\simeq\]
+	The second term in the summation is negligible if $\langle n_{k}\rangle-\bar{n}_{k}(\theta)\gg1$, which is likely when $L$ is big enough.
+	Then
+	\[x(\theta)=\frac{t(\theta)-N}{\sqrt{2N}}\simeq\frac{1}{\sqrt{2N}}\sum_{k=1}^{N}\frac{[\langle n_{k}\rangle-\bar{n}_{k}(\theta)]^{2}}{\bar{n}_{k}(\theta)}.\]
+	The best-fit distribution in a specific model is obtained by selecting $\theta$ that minimises $t$.
 	
-	Then the total log-likelihood is
-	\[L\simeq\sum_{i=1}^{N}\bigg(\ln\langle\rho\rangle+\frac{\rho(\mu_{i})-\langle\rho\rangle}{\langle\rho\rangle}-\frac{[\rho(\mu_{i})-\langle\rho\rangle]^{2}}{2\langle\rho\rangle^{2}}\bigg).\]
-	When N is large enough, the sum can be interpreted as a Monte Carlo integral.
-	Here the distribution is almost uniform within the mass range, so
+	In the analysis below, we assume that the one-loop calculation for propagators of $X$ is accurate enough to give a true differential cross-section.
+	There may be two null hypotheses.
+	The first hypothesis $H_{1}$ suggests that the SM background is enough to explain the experiment.
+	The second hypothesis, $H_{2}$, agrees that there is a scalar resonance $X$ in dimuon production, but argues that such resonance can be explained by Breit-Wigner distribution.
+	If the resonance is narrow enough, the SM background can be considered almost constant within the resonance range.
+	We also assume that the SM background is much bigger than the resonance signal, so
+	\[\rho_{\text{pred}}(\mu;H_{1})\simeq\rho_{\text{pred}}(M;H_{1})\gg\rho(\mu)-\rho_{\text{pred}}(M;H_{1}).\]
+	A scattering amplitude that involves resonant production of dimuon contains the propagator $\Delta(p^{2})$ of $X$.
+	If interference is minor, then the discrepancy of differential cross-section from the SM prediction takes the form of
+	\[\Delta\rho(\mu)=A(\mu)|\Delta(\mu^{2})|^{2},\]
+	where the function $A(\mu)$ can be calculated from the Feynman diagram, excluding the propagator of $X$.
+	Again, we assume that $A(\mu)$ is almost constant within the resonance.
+	If not, we can always compute $A(\mu)$ from a concrete model.
+	Under these assumptions, the test statistic becomes
 	\begin{align*}
-		L&\simeq\frac{N}{2\Delta M}\int_{M-\Delta M}^{M+\Delta M}\bigg(\ln\langle\rho\rangle+\frac{\rho(\mu_{i})-\langle\rho\rangle}{\langle\rho\rangle}-\frac{[\rho(\mu_{i})-\langle\rho\rangle]^{2}}{2\langle\rho\rangle^{2}}\bigg)d\mu\\
-		&=N\ln\langle\rho\rangle+\frac{N}{2\Delta M\langle\rho\rangle}\int_{M-\Delta M}^{M+\Delta M}[\rho(\mu)-\langle\rho\rangle]\,d\mu-\frac{N}{4\Delta M\langle\rho\rangle^{2}}\int_{M-\Delta M}^{M+\Delta M}[\rho(\mu_{i})-\langle\rho\rangle]^{2}\,d\mu\\
-		&=N\ln\langle\rho\rangle-\frac{N}{4\Delta M\langle\rho\rangle^{2}}\int_{M-\Delta M}^{M+\Delta M}[\rho(\mu_{i})-\langle\rho\rangle]^{2}\,d\mu.
+		x(\theta)&\simeq\frac{1}{\sqrt{2N}}\sum_{k=1}^{N}\frac{[\langle n_{k}\rangle-\bar{n}_{k}(\theta)]^{2}}{\bar{n}_{k}(\theta)}\\
+		&\simeq\frac{\sqrt{N}}{\sqrt{8}L\Delta M\rho_{\text{pred}}(M;H_{1})}\sum_{k=1}^{N}[\langle n_{k}\rangle-\bar{n}_{k}(\theta)]^{2}\\
+		&\simeq\frac{\sqrt{8}(\Delta M)^{2}}{N^{5/2}\rho_{\text{pred}}(M;H_{1})}L\int_{M-\Delta M}^{M+\Delta M}[\rho(\mu)-\rho_{\text{pred}}(\mu;\theta)]^{2}d\mu.
 	\end{align*}
-	Therefore,
-	\[t_{1}:=2L(H_{1})-2L(H_{0})=\frac{N}{4\Delta M\langle\rho\rangle^{2}}\int_{M-\Delta M}^{M+\Delta M}[\rho(\mu_{i})-\langle\rho\rangle]^{2}\,d\mu.\]
+	Therefore, the required total luminosity to reject the null hypothesis is inversely proportional to square-difference integral of the true distribution and the best-fit distribution.
+	In this context, we will calculate the ratio between the integrated luminosity required to reject the hypothesis $H_{1}$ and the one required to reject the hypothesis $H_{2}$.
+	This indicates how difficult it is to find the in-resonance decay mode of $X$ compared to discover the scalar resonance itself.
 	
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{scalar_0GeV.pdf}
+			\caption{}
+			\label{fig:luminosity_ratio_sf:scalar}
+		\end{subfigure}
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{fermion_0GeV.pdf}
+			\caption{}
+			\label{fig:luminosity_ratio_sf:fermion}
+		\end{subfigure}
+		\captionsetup{width=.9\linewidth}
+		\caption{Required integrated luminosity ratio of observing in-resonance decay channel, where the loop particle is (a) a complex scalar boson and (b) a Dirac fermion. For example, the value $10^{-2}$ means that $10^{2}$ times of integrated luminosity is needed to confirm the presence of in-resonance decay channel after discovering the scalar resonance. In (a), two dotted lines are the contours having ratio $10^{-2}$ and $10^{-4}$. In (b), a dotted line indicates the ratio value $10^{-4}$, since there is no parameter point making the luminosity ratio greater than $10^{-2}$. In both cases, the mass $M$ of massive real scalar particle is $1\,\mathrm{TeV}$, and the total width of $X$ is $100\,\mathrm{GeV}$. The upper left corner with no data point in graph (a) is the parameter range that the partial width corresponding to $X\to\phi\bar{\phi}$ is greater than the total width, thus is unphysical.}
+		\label{fig:luminosity_ratio_sf}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{temp_a.pdf}
+			\caption{$m=480\,\mathrm{GeV}$}
+			\label{fig:temp:a}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{temp_b.pdf}
+			\caption{$m=500\,\mathrm{GeV}$}
+			\label{fig:temp:b}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{temp_c.pdf}
+			\caption{$m=510\,\mathrm{GeV}$}
+			\label{fig:temp:c}
+		\end{subfigure}
+		\captionsetup{width=.9\linewidth}
+		\caption{Temporary plot.}
+		\label{fig:temp}
+	\end{figure}
+	
+	As Fig.\ref{fig:luminosity_ratio_sf} shows, it is much harder to discover the in-resonance decay channel into fermions than the in-resonance decay channel into scalar bosons.
+	This is consistent with the inability to observe significant changes in the shape of the propagators near the threshold which is shown in Fig.\ref{fig:resonance_shape:fermion}.
+	Therefore, in the analysis below, we will focus on the case where the loop particle is a scalar boson.
+	
+	There is another obstacle in real-world experiments - an uncertainty of measuring dimuon invariant mass, also called smearing.
+	This uncertainty is highly dependent on scattering angle, but here we will approximate the effect with simple Gaussian convolution.
+	A typical scale of such error is few percent of the momentum, so few tens GeV in this case\footnote{1201.4704 says $\sim10\%$ for $p_{T}\simeq1\,\mathrm{TeV}$. But about $10\,\mathrm{GeV}$ on ILD in best case? 1902.05021}.
+	
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{scalar_0GeV.pdf}
+			\caption{}
+			\label{fig:luminosity_ratio_scalar:0}
+		\end{subfigure}
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{scalar_10GeV.pdf}
+			\caption{}
+			\label{fig:luminosity_ratio_scalar:10}
+		\end{subfigure}
+		\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{scalar_20GeV.pdf}
+		\caption{}
+		\label{fig:luminosity_ratio_scalar:20}
+		\end{subfigure}
+		\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{scalar_50GeV.pdf}
+		\caption{}
+		\label{fig:luminosity_ratio_scalar:50}
+		\end{subfigure}
+		\captionsetup{width=.9\linewidth}
+		\caption{The luminosity ratio when the smearing is present. The Gaussian uncertainty of the invariant mass is (a) $0\,\mathrm{GeV}$, (b) $10\,\mathrm{GeV}$, (c) $20\,\mathrm{GeV}$, and (d) $50\,\mathrm{GeV}$. The other settings are the same with the one in Fig.\ref{fig:luminosity_ratio_sf:scalar}.}
+		\label{fig:luminosity_ratio_scalar}
+	\end{figure}
+	
+	Fig. \ref{fig:luminosity_ratio_scalar} shows the luminosity ratio values while taking smearing into account.
+	Clearly smearing worsens the results, especially when the invariant mass uncertainty is in the same order of magnitude with the total width of the particle $X$.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.4\linewidth]{xu_fang.png}
+		\caption{Current experimental window for scalar dimuon resonances.}
+		\label{fig:CLIC_window}
+	\end{figure}
 \end{document}
