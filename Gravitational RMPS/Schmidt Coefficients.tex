@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{amsmath,amsthm,amssymb,amsfonts,mathrsfs}
+\usepackage{bm,bbm}
+\usepackage{braket,slashed,tensor}
+\usepackage[a4paper, total={7.5in, 10in}]{geometry}
+\usetikzlibrary{decorations.markings,positioning,decorations.pathmorphing,decorations.pathreplacing,calc}
+\allowdisplaybreaks
+\renewcommand\bra[1]{{\langle{#1}|}}
+\renewcommand\ket[1]{{|{#1}\rangle}}
+
+\pgfmathsetmacro\MathAxis{height("$\vcenter{}$")}
+
+\begin{document}
+	\title{Schmidt Decomposition of Matrix Product State}
+	\author{Seokhyeon Song}
+	\maketitle
+	
+	Consider a quantum system which consists of $N_{s}$ sites, each having a $D$-dimensional Hilbert space.
+	A translation-invariant matrix product state (MPS) with periodic boundary condition is specified by a set of $\chi\times\chi$ matrices $A_{i}$ for $i=1,\dots,D$.
+	Such a state can be expressed as
+	\[\ket{\psi}=\sum_{i_{1},\dots,i_{N_{s}}}\mathrm{Tr}[A_{i_{1}}\cdots A_{i_{N_{s}}}]\ket{i_{1}i_{2}\cdots i_{N_{s}}}.\]
+	Divide the system into two regions $p$ and $q$, where $p$ contains the sites from $1$ to $N_{p}$, and $q$ the rest ($N_{p}+N_{q}=N_{s}$).
+	We notate
+	\[\vec{i}_{p}=(i_{1},\dots,i_{N_{p}}),\quad\vec{i}_{q}=(i_{N_{p}+1},\dots,i_{N_{s}}).\]
+	Now we write
+	\[\ket{\psi}=Tr[B_{\vec{i}_{p}}C_{\vec{i}_{q}}]\ket{\vec{i}_{p}}\otimes\ket{\vec{i}_{q}}=\ket{\psi}=(B_{\vec{i}_{p}})_{\alpha\beta}(C_{\vec{i}_{q}})_{\beta\alpha}\ket{\vec{i}_{p}}\otimes\ket{\vec{i}_{q}}\]
+	for
+	\[B_{\vec{i}_{p}}:=A_{i_{1}}\cdots A_{i_{N_{p}}},\quad C_{\vec{i}_{q}}:=A_{i_{N_{p}+1}}\cdots A_{i_{N_{s}}}.\]
+	The density matrix $\rho_{p}$ is given by $\rho_{p}=\mathrm{Tr}_{q}[\ket{\psi}\bra{\psi}]$, so
+	\[(\rho_{p})_{\vec{i}_{p}\vec{j}_{p}}=\bra{\vec{i}_{p}}\rho_{p}\ket{\vec{j}_{p}}=\sum_{\vec{i}_{q}}(\bra{\vec{i}_{p}}\otimes\bra{\vec{i}_{q}})\ket{\psi}\bra{\psi}(\ket{\vec{j}_{p}}\otimes\ket{\vec{i}_{q}})=(B_{\vec{i}_{p}})_{\alpha\beta}(B_{\vec{j}_{p}}^{\ast})_{\gamma\delta}\sum_{\vec{i}_{q}}(C_{\vec{i}_{q}})_{\beta\alpha}(C_{\vec{i}_{q}}^{\ast})_{\delta\gamma}.\]
+	
+	The transfer matrix $\mathbb{E}$ is defined as
+	\[\mathbb{E}:=\sum_{i=1}^{D}A_{i}\otimes A_{i}^{\ast},\]
+	so
+	\[\mathbb{E}_{(\alpha\gamma)(\beta\delta)}=\sum_{i=1}^{D}(A_{i})_{\alpha\beta}(A_{i}^{\ast})_{\gamma\delta}.\]
+	Hence,
+	\[\sum_{\vec{i}_{q}}(C_{\vec{i}_{q}})_{\beta\alpha}(C_{\vec{i}_{q}}^{\ast})_{\delta\gamma}=(\mathbb{E}^{N_{q}})_{(\beta\delta)(\alpha\gamma)}.\]
+	This means that
+	\[(\rho_{p})_{\vec{i}_{p}\vec{j}_{p}}=(B_{\vec{i}_{p}})_{\alpha\beta}(\mathbb{E}^{N_{q}})^{\mathrm{T}}_{(\alpha\gamma)(\beta\delta)}(B_{\vec{j}_{p}}^{\ast})_{\gamma\delta}.\]
+	We reformat the matrix indices, where
+	\[\mathscr{B}_{\vec{i}_{p}(\alpha\beta)}:=(B_{\vec{i}_{p}})_{\alpha\beta},\quad\mathscr{Q}_{(\alpha\beta)(\gamma\delta)}:=(\mathbb{E}^{N_{q}})^{\mathrm{T}}_{(\alpha\gamma)(\beta\delta)}.\]
+	Then
+	\[(\rho_{p})_{\vec{i}_{p}\vec{j}_{p}}=\mathscr{B}_{\vec{i}_{p}(\alpha\beta)}\mathscr{Q}_{(\alpha\beta)(\gamma\delta)}\mathscr{B}^{\ast}_{\vec{j}_{p}(\gamma\delta)}\implies\rho_{p}=\mathscr{B}\mathscr{Q}\mathscr{B}^{\dagger}.\]
+	In terms of nonzero eigenvalues, the multiplication order does not matter, so $\rho_{p}$ shares the same nonzero eigenvalues with $\mathscr{B}^{\dagger}\mathscr{B}\mathscr{Q}$.
+	We can figure out the product $\mathscr{B}^{\dagger}\mathscr{B}$:
+	\[(\mathscr{B}^{\dagger}\mathscr{B})_{(\alpha\beta)(\gamma\delta)}=\sum_{\vec{i}_{p}}\mathscr{B}^{\ast}_{\vec{i}_{p}(\alpha\beta)}\mathscr{B}_{\vec{i}_{p}(\gamma\delta)}=\sum_{\vec{i}_{p}}(B_{\vec{i}_{p}}^{\ast})_{\alpha\beta}(B_{\vec{i}_{p}})_{\gamma\delta}=(\mathbb{E}^{N_{p}})_{(\gamma\alpha)(\delta\beta)}.\]
+	Therefore,
+	\[(\mathscr{B}^{\dagger}\mathscr{B}\mathscr{Q})_{(\alpha\beta)(\gamma\delta)}=(\mathbb{E}^{N_{p}})_{(\epsilon\alpha)(\zeta\beta)}(\mathbb{E}^{N_{q}})_{(\zeta\delta)(\epsilon\gamma)}.\]
+	
+\end{document}
