@@ -1,11 +1,18 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 project(RMPS)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+# Enable C++
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+# Find Eigen via vcpkg (no need to install separately if using vcpkg)
+set(CMAKE_TOOLCHAIN_FILE "C:/Users/hypercube256/Development/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "vcpkg toolchain file")
+set(CMAKE_PREFIX_PATH "C:/Users/hypercube256/Development/vcpkg/installed/x64-mingw-dynamic")
+find_package(Eigen3 REQUIRED)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+# Add your source files here
+add_executable(RMPS src/main.cpp)
+target_include_directories(RMPS PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-add_executable(RMPS ${SOURCES})
+# Link Eigen (header-only) and system math libraries for BLAS/LAPACK
+target_link_libraries(RMPS PRIVATE Eigen3::Eigen)
