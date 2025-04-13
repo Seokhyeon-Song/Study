@@ -73,15 +73,15 @@ CMakeFiles/RMPS.dir/src/main.cpp.obj: CMakeFiles/RMPS.dir/includes_CXX.rsp
 CMakeFiles/RMPS.dir/src/main.cpp.obj: C:/Users/hypercube256/Desktop/Study/Gravitational\ RMPS/RMPS/src/main.cpp
 CMakeFiles/RMPS.dir/src/main.cpp.obj: CMakeFiles/RMPS.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RMPS.dir/src/main.cpp.obj"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RMPS.dir/src/main.cpp.obj -MF CMakeFiles\RMPS.dir\src\main.cpp.obj.d -o CMakeFiles\RMPS.dir\src\main.cpp.obj -c "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\src\main.cpp"
+	C:\Users\hypercube256\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RMPS.dir/src/main.cpp.obj -MF CMakeFiles\RMPS.dir\src\main.cpp.obj.d -o CMakeFiles\RMPS.dir\src\main.cpp.obj -c "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\src\main.cpp"
 
 CMakeFiles/RMPS.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RMPS.dir/src/main.cpp.i"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\src\main.cpp" > CMakeFiles\RMPS.dir\src\main.cpp.i
+	C:\Users\hypercube256\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\src\main.cpp" > CMakeFiles\RMPS.dir\src\main.cpp.i
 
 CMakeFiles/RMPS.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RMPS.dir/src/main.cpp.s"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\src\main.cpp" -o CMakeFiles\RMPS.dir\src\main.cpp.s
+	C:\Users\hypercube256\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\src\main.cpp" -o CMakeFiles\RMPS.dir\src\main.cpp.s
 
 # Object files for target RMPS
 RMPS_OBJECTS = \

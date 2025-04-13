@@ -3,6 +3,8 @@
 #include <random>
 #include <vector>
 
+#define EIGEN_USE_BLAS
+#define EIGEN_USE_LAPACKE
 #include <Eigen/Dense>
 
 Eigen::MatrixXcd generatePartialUnitary(size_t d, size_t chi) {
