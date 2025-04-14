@@ -1,0 +1,10 @@
+^C:\USERS\HYPERCUBE256\DESKTOP\STUDY\GRAVITATIONAL RMPS\RMPS\BUILD\CMAKEFILES\485855148F936EE0BF4EC217498986B8\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS" "-BC:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build/RMPS.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,9 +1,0 @@
-[
-    {
-      "name": "MinGW GCC 13.2.0",
-      "compilers": {
-        "C": "C:/Users/hypercube256/mingw64/bin/gcc.exe",
-        "CXX": "C:/Users/hypercube256/mingw64/bin/g++.exe"
-      }
-    }
-  ]

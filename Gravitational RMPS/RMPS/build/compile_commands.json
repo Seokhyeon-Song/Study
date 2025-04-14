@@ -1,7 +1,0 @@
-[
-{
-  "directory": "C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build",
-  "command": "C:\\Users\\hypercube256\\mingw64\\bin\\g++.exe  @CMakeFiles/RMPS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\RMPS.dir\\src\\main.cpp.obj -c \"C:\\Users\\hypercube256\\Desktop\\Study\\Gravitational RMPS\\RMPS\\src\\main.cpp\"",
-  "file": "C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/src/main.cpp"
-}
-]
