@@ -7,7 +7,7 @@ Id flags:
 The output was:
 0
 MSBuild version 17.4.0+18d5aef85 for .NET Framework
-Build started 2025-04-14 ?? 4:59:57.
+Build started 2025-04-15 ?? 12:09:50.
 Project "C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\build\CMakeFiles\3.25.1\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
 PrepareForBuild:
   Creating directory "Debug\".
@@ -38,7 +38,7 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.30
+Time Elapsed 00:00:01.70
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -48,14 +48,14 @@ Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" p
 The CXX compiler identification is MSVC, found in "C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build/CMakeFiles/3.25.1/CompilerIdCXX/CompilerIdCXX.exe"
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build/CMakeFiles/CMakeScratch/TryCompile-mwukm8
+Change Dir: C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build/CMakeFiles/CMakeScratch/TryCompile-jesby1
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_15ffd.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.4.0+18d5aef85 for .NET Framework
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_791be.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && MSBuild version 17.4.0+18d5aef85 for .NET Framework
   Microsoft (R) C/C++ Optimizing Compiler Version 19.34.31933 for x64
   CMakeCXXCompilerABI.cpp
   Copyright (C) Microsoft Corporation.  All rights reserved.
-  cl /c /I"C:\Users\hypercube256\Development\Cpp\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_15ffd.dir\Debug\\" /Fd"cmTC_15ffd.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXCompilerABI.cpp"
-  cmTC_15ffd.vcxproj -> C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\build\CMakeFiles\CMakeScratch\TryCompile-mwukm8\Debug\cmTC_15ffd.exe
+  cl /c /I"C:\Users\hypercube256\Development\Cpp\vcpkg\installed\x64-windows\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_791be.dir\Debug\\" /Fd"cmTC_791be.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXCompilerABI.cpp"
+  cmTC_791be.vcxproj -> C:\Users\hypercube256\Desktop\Study\Gravitational RMPS\RMPS\build\CMakeFiles\CMakeScratch\TryCompile-jesby1\Debug\cmTC_791be.exe
 
 
 

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <chrono>
+#include <fstream>
 #include <iostream>
 
 #include "RMPSLib.h"
@@ -11,22 +12,45 @@ void sortByReal(std::vector<std::complex<double>> &w) {
 }
 
 int main() {
-  size_t d, chi, it;
+  size_t d, chi, it, nsMax;
   std::cout << "Dimension of each Hilbert space: ";
   std::cin >> d;
   std::cout << "Bond dimension of translation-invariant MPS: ";
   std::cin >> chi;
   std::cout << "Size of ensemble: ";
   std::cin >> it;
+  std::cout << "Maximum Number of sites: ";
+  std::cin >> nsMax;
 
-  std::vector<Complex> eigenValues(chi * chi);
+  std::ofstream fout("output.txt");
 
   auto start = std::chrono::high_resolution_clock::now();
-  for (size_t i = 0; i < it; i++) {
-    complexEigenValues(generateTransferMatrix(d, chi), eigenValues, chi * chi);
-  }
-  auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> duration = end - start;
 
+  for (size_t ns = 1; ns <= nsMax; ++ns) {
+    size_t chisq = chi * chi;
+    std::vector<Complex> transferMat(chisq * chisq);
+    std::vector<Complex> poweredTransferMat(chisq * chisq);
+    double sumTrace = 0, sumTraceSq = 0;
+
+    for (size_t i = 0; i < it; i++) {
+      transferMat = generateTransferMatrix(d, chi);
+      matrixPower(ns, transferMat, poweredTransferMat, chisq);
+      double tr = trace(poweredTransferMat, chisq).real();
+      sumTrace += tr;
+      sumTraceSq += tr * tr;
+    }
+
+    sumTrace /= (double)it;
+    sumTraceSq /= (double)it;
+
+    fout << ns << ", " << sumTrace << ", " << sumTraceSq - sumTrace * sumTrace << std::endl;
+  }
+
+  auto end = std::chrono::high_resolution_clock::now();
+  fout.close();
+
+  std::chrono::duration<double> duration = end - start;
   std::cout << "Calculation time (s) = " << duration.count() << std::endl;
+
+  return 0;
 }

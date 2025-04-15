@@ -4,6 +4,8 @@
 #include <mkl_lapacke.h>
 #include <random>
 
+const Complex one(1.0, 0.0), zero(0.0, 0.0);
+
 std::vector<Complex> generateOrthonormalBlock(const size_t d, const size_t chi) {
   const size_t rows = d * chi;
   std::mt19937 gen(std::random_device{}());
@@ -73,4 +75,37 @@ std::vector<Complex> generateTransferMatrix(const size_t d, const size_t chi) {
   }
 
   return transferMat;
+}
+
+void matrixPower(size_t n, const std::vector<Complex> &A, std::vector<Complex> &result,
+                 const size_t dim) {
+  // Initialising result as an identity matrix
+  std::fill(result.begin(), result.end(), zero);
+  for (size_t i = 0; i < dim; ++i) {
+    result[i * dim + i] = one;
+  }
+
+  std::vector<Complex> temp(dim * dim);
+  std::vector<Complex> A_current = A;
+
+  while (n > 0) {
+    if (n % 2 == 1) {
+      cblas_zgemm3m(CblasColMajor, CblasNoTrans, CblasNoTrans, dim, dim, dim, &one,
+                    A_current.data(), dim, result.data(), dim, &zero, temp.data(), dim);
+      std::copy(temp.begin(), temp.end(), result.begin());
+    }
+
+    cblas_zgemm3m(CblasColMajor, CblasNoTrans, CblasNoTrans, dim, dim, dim, &one, A_current.data(),
+                  dim, A_current.data(), dim, &zero, temp.data(), dim);
+    std::copy(temp.begin(), temp.end(), A_current.begin());
+
+    n /= 2;
+  }
+}
+
+Complex trace(const std::vector<Complex> &A, const size_t dim) {
+  Complex res = zero;
+  for (size_t i = 0; i < dim; ++i)
+    res += A[i * dim + i];
+  return res;
 }
