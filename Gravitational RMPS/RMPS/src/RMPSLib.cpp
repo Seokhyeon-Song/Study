@@ -109,3 +109,53 @@ Complex trace(const std::vector<Complex> &A, const size_t dim) {
     res += A[i * dim + i];
   return res;
 }
+
+std::vector<Complex> generateTransferMatrix2(const size_t d, const size_t chi) {
+  const size_t chisq = chi * chi;
+  std::vector<Complex> tempMat(chisq * chisq);
+  std::vector<Complex> transferMat(chisq * chisq);
+
+  std::vector<Complex> matBlock(d * chisq);
+  std::mt19937 gen(std::random_device{}());
+  std::normal_distribution<double> dist(0.0, 1.0 / sqrt(2 * chi));
+
+  for (size_t i = 0; i < d; i++) {
+    for (size_t j = 0; j < chi; j++) {
+      matBlock[j * (chi + 1) + i * chisq] = Complex(dist(gen), 0);
+      for (size_t k = j + 1; k < chi; k++) {
+        matBlock[j + k * chi + i * chisq] = Complex(dist(gen), dist(gen));
+        matBlock[k + j * chi + i * chisq] = conj(matBlock[j + k * chi + i * chisq]);
+      }
+    }
+  }
+
+  cblas_zherk(CblasColMajor, CblasUpper, CblasNoTrans, chisq, d, 1, matBlock.data(), chisq, 1,
+              tempMat.data(), chisq);
+  for (size_t i = 0; i < chisq; ++i) {
+    for (size_t j = i + 1; j < chisq; ++j) {
+      tempMat[j + i * chisq] = conj(tempMat[i + j * chisq]);
+    }
+  }
+
+  for (size_t a = 0; a < chi; ++a) {
+    for (size_t b = 0; b < chi; ++b) {
+      for (size_t c = 0; c < chi; ++c) {
+        for (size_t d = 0; d < chi; ++d) {
+          // Source indices
+          size_t row_S = a * chi + c;
+          size_t col_S = b * chi + d;
+          size_t idx_S = col_S * chisq + row_S;
+
+          // Target indices
+          size_t row_T = a * chi + b;
+          size_t col_T = c * chi + d;
+          size_t idx_T = col_T * chisq + row_T;
+
+          transferMat[idx_T] = tempMat[idx_S];
+        }
+      }
+    }
+  }
+
+  return transferMat;
+}

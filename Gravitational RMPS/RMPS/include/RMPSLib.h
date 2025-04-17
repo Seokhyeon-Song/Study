@@ -11,3 +11,4 @@ void matrixPower(size_t n, const std::vector<Complex> &A, std::vector<Complex> &
 void complexEigenValues(const std::vector<Complex> &A, std::vector<Complex> &w, const size_t n);
 
 std::vector<Complex> generateTransferMatrix(const size_t d, const size_t chi);
+std::vector<Complex> generateTransferMatrix2(const size_t d, const size_t chi);
