@@ -33,7 +33,7 @@ int main() {
     double sumTrace = 0, sumTraceSq = 0;
 
     for (size_t i = 0; i < it; i++) {
-      transferMat = generateTransferMatrix2(d, chi);
+      transferMat = generateTransferMatrix(d, chi);
       matrixPower(ns, transferMat, poweredTransferMat, chisq);
       double tr = trace(poweredTransferMat, chisq).real();
       sumTrace += tr;
