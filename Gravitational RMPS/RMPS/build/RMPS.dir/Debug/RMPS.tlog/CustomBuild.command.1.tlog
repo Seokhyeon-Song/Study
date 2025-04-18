@@ -1,6 +1,6 @@
-^C:\USERS\HYPERCUBE256\DESKTOP\STUDY\GRAVITATIONAL RMPS\RMPS\CMAKELISTS.TXT
+^C:\USERS\HYPER\DOWNLOADS\STUDY\GRAVITATIONAL RMPS\RMPS\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS" "-BC:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build" --check-stamp-file "C:/Users/hypercube256/Desktop/Study/Gravitational RMPS/RMPS/build/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/hyper/Downloads/Study/Gravitational RMPS/RMPS" "-BC:/Users/hyper/Downloads/Study/Gravitational RMPS/RMPS/build" --check-stamp-file "C:/Users/hyper/Downloads/Study/Gravitational RMPS/RMPS/build/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
