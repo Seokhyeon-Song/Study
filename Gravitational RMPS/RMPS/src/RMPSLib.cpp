@@ -110,24 +110,72 @@ Complex trace(const std::vector<Complex> &A, const size_t dim) {
   return res;
 }
 
-std::vector<Complex> generateTransferMatrix2(const size_t d, const size_t chi) {
-  const size_t chisq = chi * chi;
-  std::vector<Complex> tempMat(chisq * chisq);
-  std::vector<Complex> transferMat(chisq * chisq);
+void matrixExp(const std::vector<Complex> &A, std::vector<Complex> &expA, size_t chi) {
+  std::vector<Complex> A_copy = A;
+  std::vector<Complex> eigvals(chi), eigvecs(chi * chi);
 
-  std::vector<Complex> matBlock(d * chisq);
+  // Compute eigenvalues and right eigenvectors
+  LAPACKE_zgeev(LAPACK_COL_MAJOR, 'N', 'V', chi, reinterpret_cast<MKL_Complex16 *>(A_copy.data()),
+                chi, reinterpret_cast<MKL_Complex16 *>(eigvals.data()), nullptr, chi,
+                reinterpret_cast<MKL_Complex16 *>(eigvecs.data()), chi);
+
+  // Construct exp(D)
+  std::vector<Complex> expD(chi * chi, 0.0);
+  for (size_t i = 0; i < chi; ++i)
+    expD[i + i * chi] = std::exp(eigvals[i]);
+
+  // Compute inverse of V
+  std::vector<Complex> Vinv = eigvecs;
+  std::vector<MKL_INT> ipiv(chi);
+  LAPACKE_zgetrf(LAPACK_COL_MAJOR, chi, chi, reinterpret_cast<MKL_Complex16 *>(Vinv.data()), chi,
+                 ipiv.data());
+
+  std::vector<Complex> identity(chi * chi, 0.0);
+  for (size_t i = 0; i < chi; ++i)
+    identity[i + i * chi] = 1.0;
+
+  LAPACKE_zgetrs(LAPACK_COL_MAJOR, 'N', chi, chi, reinterpret_cast<MKL_Complex16 *>(Vinv.data()),
+                 chi, ipiv.data(), reinterpret_cast<MKL_Complex16 *>(identity.data()), chi);
+
+  // Final multiplication: expA = V * exp(D) * V^{-1}
+  std::vector<Complex> temp(chi * chi);
+
+  cblas_zgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, chi, chi, chi, &one, eigvecs.data(), chi,
+              expD.data(), chi, &zero, temp.data(), chi);
+  cblas_zgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, chi, chi, chi, &one, temp.data(), chi,
+              identity.data(), chi, &zero, expA.data(), chi);
+}
+
+void generateRandomHermitianMatrix(std::vector<Complex> &A, size_t chi) {
   std::mt19937 gen(std::random_device{}());
-  std::normal_distribution<double> dist(0.0, 1.0 / sqrt(2 * chi));
+  std::normal_distribution<double> dist(0.0, 1.0 / std::sqrt(2.0 * chi));
 
-  for (size_t i = 0; i < d; i++) {
-    for (size_t j = 0; j < chi; j++) {
-      matBlock[j * (chi + 1) + i * chisq] = Complex(dist(gen), 0);
-      for (size_t k = j + 1; k < chi; k++) {
-        matBlock[j + k * chi + i * chisq] = Complex(dist(gen), dist(gen));
-        matBlock[k + j * chi + i * chisq] = conj(matBlock[j + k * chi + i * chisq]);
-      }
+  for (size_t i = 0; i < chi; ++i) {
+    A[i * chi + i] = Complex(dist(gen), 0);
+    for (size_t j = i + 1; j < chi; ++j) {
+      A[i * chi + j] = Complex(dist(gen), dist(gen));
+      A[j * chi + i] = conj(A[i * chi + j]);
     }
   }
+}
+
+std::vector<Complex> generateTransferMatrix2(const size_t d, const size_t chi) {
+  const size_t chisq = chi * chi;
+  std::vector<Complex> matBlock(d * chisq);
+
+  for (size_t i = 0; i < d; ++i) {
+    std::vector<Complex> A(chisq);
+    generateRandomHermitianMatrix(A, chi);
+    std::vector<Complex> expA(chisq);
+    matrixExp(A, expA, chi);
+
+    for (size_t j = 0; j < chisq; ++j) {
+      matBlock[i * chisq + j] = expA[j];
+    }
+  }
+
+  std::vector<Complex> tempMat(chisq * chisq);
+  std::vector<Complex> transferMat(chisq * chisq);
 
   cblas_zherk(CblasColMajor, CblasUpper, CblasNoTrans, chisq, d, 1, matBlock.data(), chisq, 1,
               tempMat.data(), chisq);
