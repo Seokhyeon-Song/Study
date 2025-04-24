@@ -12,38 +12,38 @@ void sortByReal(std::vector<std::complex<double>> &w) {
 }
 
 int main() {
-  size_t d, chi, it, nsMax;
+  size_t d, chiMax, it, ns;
   std::cout << "Dimension of each Hilbert space: ";
   std::cin >> d;
-  std::cout << "Bond dimension of translation-invariant MPS: ";
-  std::cin >> chi;
+  std::cout << "Maximum Bond dimension of translation-invariant MPS: ";
+  std::cin >> chiMax;
+  std::cout << "Number of sites: ";
+  std::cin >> ns;
   std::cout << "Size of ensemble: ";
   std::cin >> it;
-  std::cout << "Maximum Number of sites: ";
-  std::cin >> nsMax;
 
   std::ofstream fout("output.txt");
 
+  fout << "Dimension of each Hilbert space: " << d << std::endl;
+  fout << "Number of sites: " << ns << std::endl;
+  fout << "Size of ensemble: " << it << std::endl;
+
   auto start = std::chrono::high_resolution_clock::now();
 
-  for (size_t ns = 1; ns <= nsMax; ++ns) {
+  for (size_t chi = 2; chi <= chiMax; ++chi) {
     size_t chisq = chi * chi;
     std::vector<Complex> transferMat(chisq * chisq);
-    std::vector<Complex> poweredTransferMat(chisq * chisq);
-    double sumTrace = 0, sumTraceSq = 0;
+    std::vector<Complex> densityMat(chisq * chisq);
 
-    for (size_t i = 0; i < it; i++) {
-      transferMat = generateTransferMatrix2(d, chi);
-      matrixPower(ns, transferMat, poweredTransferMat, chisq);
-      double tr = trace(poweredTransferMat, chisq).real();
-      sumTrace += tr;
-      sumTraceSq += tr * tr;
+    for (size_t np = 1; np <= ns / 2; np++) {
+      double entropy = 0.0;
+      for (size_t i = 0; i < it; i++) {
+        transferMat = generateTransferMatrix(d, chi);
+        constructReducedDensityMat(transferMat, densityMat, np, ns - np, chi);
+        entropy += vonNeumannEntropy(densityMat, chisq);
+      }
+      fout << chi << ", " << np << ", " << entropy / it << std::endl;
     }
-
-    sumTrace /= (double)it;
-    sumTraceSq /= (double)it;
-
-    fout << ns << ", " << sumTrace << ", " << sumTraceSq - sumTrace * sumTrace << std::endl;
   }
 
   auto end = std::chrono::high_resolution_clock::now();

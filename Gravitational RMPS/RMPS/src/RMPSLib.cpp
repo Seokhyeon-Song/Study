@@ -1,5 +1,6 @@
 #include "RMPSLib.h"
 
+#include <iostream>
 #include <mkl.h>
 #include <mkl_lapacke.h>
 #include <random>
@@ -206,4 +207,47 @@ std::vector<Complex> generateTransferMatrix2(const size_t d, const size_t chi) {
   }
 
   return transferMat;
+}
+
+void constructReducedDensityMat(const std::vector<Complex> &transferMat,
+                                std::vector<Complex> &reducedDensityMat, const size_t np,
+                                const size_t nq, const size_t dimsqrt) {
+  size_t dim = dimsqrt * dimsqrt;
+  size_t dimsq = dim * dim;
+  std::vector<Complex> enp(dimsq), enq(dimsq), enpMix(dimsq), enqMix(dimsq);
+  matrixPower(np, transferMat, enp, dim);
+  matrixPower(nq, transferMat, enq, dim);
+
+  for (size_t a = 0; a < dimsqrt; ++a) {
+    for (size_t b = 0; b < dimsqrt; ++b) {
+      size_t row_out = a * dimsqrt + b;
+      for (size_t c = 0; c < dimsqrt; ++c) {
+        size_t row_in = a * dimsqrt + c;
+        for (size_t d = 0; d < dimsqrt; ++d) {
+          size_t col_in = b * dimsqrt + d;
+          size_t col_out = c * dimsqrt + d;
+
+          enpMix[row_out * dim + col_out] = enp[col_in * dim + row_in];
+          enqMix[col_out * dim + row_out] = enq[row_in * dim + col_in];
+        }
+      }
+    }
+  }
+
+  cblas_zgemm3m(CblasColMajor, CblasNoTrans, CblasNoTrans, dim, dim, dim, &one, enpMix.data(), dim,
+                enqMix.data(), dim, &zero, reducedDensityMat.data(), dim);
+
+  return;
+}
+
+double vonNeumannEntropy(const std::vector<Complex> &densityMat, const size_t dim) {
+  std::vector<Complex> eigenValues(dim);
+  complexEigenValues(densityMat, eigenValues, dim);
+
+  double entropy = 0.0;
+  for (auto e : eigenValues) {
+    if (real(e) > 0)
+      entropy -= real(e) * log(real(e));
+  }
+  return entropy;
 }
