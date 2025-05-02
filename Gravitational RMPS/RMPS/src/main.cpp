@@ -33,17 +33,16 @@ int main() {
   for (size_t chi = 2; chi <= chiMax; ++chi) {
     size_t chisq = chi * chi;
     std::vector<Complex> transferMat(chisq * chisq);
-    std::vector<Complex> densityMat(chisq * chisq);
-
-    for (size_t np = 1; np <= ns / 2; np++) {
-      double entropy = 0.0;
+    std::vector<Complex> powerMat(chisq * chisq);
+    double trsum = 0.0, trsqsum = 0.0;
       for (size_t i = 0; i < it; i++) {
-        transferMat = generateTransferMatrix(d, chi);
-        constructReducedDensityMat(transferMat, densityMat, np, ns - np, chi);
-        entropy += vonNeumannEntropy(densityMat, chisq);
+        transferMat = generateTransferMatrix2(d, chi);
+        matrixPower(ns, transferMat, powerMat, chisq);
+        double tr = real(trace(powerMat, chisq));
+        trsum += tr;
+        trsqsum += tr * tr;
       }
-      fout << chi << ", " << np << ", " << entropy / it << std::endl;
-    }
+      fout << chi << ", " << (trsqsum/it) - (trsum/it) * (trsum/it) << ", " << (trsum/it) << std::endl;
   }
 
   auto end = std::chrono::high_resolution_clock::now();

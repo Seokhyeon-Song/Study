@@ -5,6 +5,7 @@
 #include <mkl_lapacke.h>
 #include <random>
 
+using namespace std::complex_literals;
 const Complex one(1.0, 0.0), zero(0.0, 0.0);
 
 std::vector<Complex> generateOrthonormalBlock(const size_t d, const size_t chi) {
@@ -111,7 +112,7 @@ Complex trace(const std::vector<Complex> &A, const size_t dim) {
   return res;
 }
 
-void matrixExp(const std::vector<Complex> &A, std::vector<Complex> &expA, size_t chi) {
+void matrixExp(const std::vector<Complex> &A, std::vector<Complex> &expA, size_t chi, const Complex mult) {
   std::vector<Complex> A_copy = A;
   std::vector<Complex> eigvals(chi), eigvecs(chi * chi);
 
@@ -123,7 +124,7 @@ void matrixExp(const std::vector<Complex> &A, std::vector<Complex> &expA, size_t
   // Construct exp(D)
   std::vector<Complex> expD(chi * chi, 0.0);
   for (size_t i = 0; i < chi; ++i)
-    expD[i + i * chi] = std::exp(eigvals[i]);
+    expD[i + i * chi] = std::exp(eigvals[i] * mult);
 
   // Compute inverse of V
   std::vector<Complex> Vinv = eigvecs;
@@ -168,10 +169,10 @@ std::vector<Complex> generateTransferMatrix2(const size_t d, const size_t chi) {
     std::vector<Complex> A(chisq);
     generateRandomHermitianMatrix(A, chi);
     std::vector<Complex> expA(chisq);
-    matrixExp(A, expA, chi);
+    matrixExp(A, expA, chi, 1i);
 
     for (size_t j = 0; j < chisq; ++j) {
-      matBlock[i * chisq + j] = expA[j];
+      matBlock[i * chisq + j] = expA[j] / sqrt(d);
     }
   }
 
